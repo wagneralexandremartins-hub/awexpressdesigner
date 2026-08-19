@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWEXPRESS Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0d14;
+    --bg-2: #0f1420;
+    --panel: #131826;
+    --cobalt: #3b6ef6;
+    --cobalt-glow: #5b8aff;
+    --amber: #f2a93b;
+    --amber-glow: #ffc36b;
+    --ink: #eef1f7;
+    --muted: #8a93a8;
+    --line: rgba(255,255,255,0.08);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background: var(--cobalt); color:#fff; }
+
+  .noise{
+    position:fixed; inset:0; pointer-events:none; opacity:0.03; z-index:2;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .bg-grid{
+    position:fixed; inset:0; z-index:0;
+    background-image:
+      linear-gradient(rgba(59,110,246,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,110,246,0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 22px 5%;
+    backdrop-filter: blur(14px);
+    background: linear-gradient(rgba(10,13,20,0.75), rgba(10,13,20,0.3));
+    border-bottom:1px solid var(--line);
+  }
+
+  /* HERO SPOTLIGHT + 3D ORBIT */
+  .spotlight{
+    position:fixed; top:-30%; left:50%; transform:translateX(-50%);
+    width:900px; height:900px; z-index:0; pointer-events:none;
+    background: radial-gradient(circle, rgba(59,110,246,0.18) 0%, rgba(242,169,59,0.08) 35%, transparent 70%);
+    filter: blur(10px);
+  }
+  .orbit-wrap{
+    position:relative; width:100%; height:520px;
+    perspective:1600px; display:flex; align-items:center; justify-content:center;
+  }
+  .orbit-core{
+    position:relative; width:220px; height:220px;
+    transform-style:preserve-3d;
+    animation: spin3d 14s linear infinite;
+  }
+  @keyframes spin3d{
+    0%{ transform: rotateY(0deg) rotateX(18deg); }
+    100%{ transform: rotateY(360deg) rotateX(18deg); }
+  }
+  .orbit-face{
+    position:absolute; inset:0; border-radius:20px;
+    border:1px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Sora'; font-weight:800; font-size:15px; letter-spacing:1px;
+    backdrop-filter: blur(4px);
+  }
+  .of1{ background:linear-gradient(135deg, rgba(59,110,246,0.5), rgba(59,110,246,0.1)); transform: translateZ(110px); box-shadow:0 0 60px rgba(59,110,246,0.35);}
+  .of2{ background:linear-gradient(135deg, rgba(242,169,59,0.5), rgba(242,169,59,0.1)); transform: rotateY(90deg) translateZ(110px); box-shadow:0 0 60px rgba(242,169,59,0.3);}
+  .of3{ background:linear-gradient(135deg, rgba(59,110,246,0.35), rgba(19,24,38,0.6)); transform: rotateY(180deg) translateZ(110px);}
+  .of4{ background:linear-gradient(135deg, rgba(242,169,59,0.35), rgba(19,24,38,0.6)); transform: rotateY(-90deg) translateZ(110px);}
+  .orbit-ring{
+    position:absolute; border-radius:50%; border:1px solid rgba(255,255,255,0.08);
+    transform-style:preserve-3d;
+  }
+  .ring1{ width:420px; height:420px; top:50%; left:50%; margin:-210px 0 0 -210px; transform:rotateX(75deg); animation: ringspin 20s linear infinite; }
+  .ring2{ width:520px; height:520px; top:50%; left:50%; margin:-260px 0 0 -260px; transform:rotateX(75deg) rotateZ(40deg); border-color:rgba(242,169,59,0.12); animation: ringspin 28s linear infinite reverse; }
+  @keyframes ringspin{ from{ transform:rotateX(75deg) rotateZ(0deg);} to{ transform:rotateX(75deg) rotateZ(360deg);} }
+  .orbit-dot{
+    position:absolute; width:10px; height:10px; border-radius:50%; background:var(--amber-glow);
+    box-shadow:0 0 16px var(--amber-glow); top:50%; left:50%;
+    animation: dotorbit 8s linear infinite;
+  }
+  @keyframes dotorbit{
+    from{ transform: rotate(0deg) translateX(260px) rotate(0deg); }
+    to{ transform: rotate(360deg) translateX(260px) rotate(-360deg); }
+  }
+
+  .decision-bar{
+    display:flex; gap:28px; flex-wrap:wrap; margin-top:44px; padding-top:28px;
+    border-top:1px solid var(--line);
+  }
+  .decision-item{ display:flex; flex-direction:column; gap:2px; }
+  .decision-item .dnum{ font-family:'Sora'; font-weight:800; font-size:22px; color:var(--ink); }
+  .decision-item .dlabel{ font-size:12px; color:var(--muted); }
+  .logo{
+    font-family:'Sora'; font-weight:800; font-size:19px; letter-spacing:0.5px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .mark{
+    width:30px; height:30px; border-radius:8px;
+    background:linear-gradient(135deg, var(--cobalt), var(--amber));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Sora'; font-weight:800; font-size:14px; color:#0a0d14;
+    transform: perspective(200px) rotateY(20deg);
+    box-shadow: 0 6px 18px rgba(59,110,246,0.35);
+  }
+  nav{ display:flex; gap:36px; }
+  nav a{
+    color:var(--muted); text-decoration:none; font-size:14px; font-weight:500;
+    transition: color .25s ease; position:relative;
+  }
+  nav a:hover{ color:var(--ink); }
+  .cta-small{
+    background:var(--ink); color:#0a0d14; padding:10px 20px; border-radius:8px;
+    font-weight:600; font-size:13.5px; text-decoration:none;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .cta-small:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(255,255,255,0.15); }
+
+  section{ position:relative; z-index:1; padding: 140px 5% 100px; }
+
+  /* HERO */
+  .hero{
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    padding-top: 100px;
+    perspective: 1400px;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono'; font-size:12px; color:var(--cobalt-glow);
+    border:1px solid rgba(59,110,246,0.3); background:rgba(59,110,246,0.08);
+    padding:6px 14px; border-radius:100px; margin-bottom:28px; width:fit-content;
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--amber); box-shadow:0 0 10px var(--amber);}
+
+  .hero-grid{ display:grid; grid-template-columns: 1.15fr 0.85fr; gap:60px; align-items:center; }
+  h1{
+    font-family:'Sora'; font-weight:700; font-size:clamp(38px, 5.2vw, 68px);
+    line-height:1.05; letter-spacing:-1.5px;
+  }
+  h1 .grad{
+    background:linear-gradient(100deg, var(--cobalt-glow), var(--amber-glow));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{
+    margin-top:24px; font-size:17px; color:var(--muted); max-width:520px; line-height:1.65;
+  }
+  .hero-cta{ display:flex; gap:14px; margin-top:38px; }
+  .btn-primary{
+    background:linear-gradient(100deg, var(--cobalt), #2f5bd6);
+    color:#fff; padding:15px 26px; border-radius:10px; text-decoration:none;
+    font-weight:600; font-size:14.5px; display:inline-flex; align-items:center; gap:8px;
+    box-shadow: 0 10px 30px rgba(59,110,246,0.35);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 40px rgba(59,110,246,0.5); }
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--ink); padding:15px 24px; border-radius:10px;
+    text-decoration:none; font-weight:600; font-size:14.5px; transition:all .25s ease;
+  }
+  .btn-ghost:hover{ background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.2); }
+
+  /* 3D STACK VISUAL */
+  .stack3d{
+    position:relative; height:420px;
+    transform-style:preserve-3d;
+    transform: rotateX(8deg) rotateY(-18deg);
+    animation: floatStack 7s ease-in-out infinite;
+  }
+  @keyframes floatStack{
+    0%,100%{ transform: rotateX(8deg) rotateY(-18deg) translateY(0px); }
+    50%{ transform: rotateX(10deg) rotateY(-14deg) translateY(-14px); }
+  }
+  .card3d{
+    position:absolute; width:280px; height:170px; border-radius:16px;
+    border:1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(6px);
+    padding:20px; display:flex; flex-direction:column; justify-content:space-between;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  }
+  .card3d h4{ font-family:'Sora'; font-size:15px; font-weight:600; }
+  .card3d p{ font-size:12px; color:var(--muted); }
+  .card3d .tag{ font-family:'JetBrains Mono'; font-size:10px; letter-spacing:1px; opacity:0.7;}
+  .c1{
+    background:linear-gradient(155deg, rgba(59,110,246,0.35), rgba(19,24,38,0.9));
+    top:10px; left:40px; transform: translateZ(80px);
+  }
+  .c2{
+    background:linear-gradient(155deg, rgba(242,169,59,0.3), rgba(19,24,38,0.92));
+    top:120px; left:170px; transform: translateZ(40px);
+  }
+  .c3{
+    background: rgba(19,24,38,0.95);
+    top:230px; left:60px; transform: translateZ(0px);
+  }
+
+  /* MOTORES / DUAL PANEL SIGNATURE */
+  .motores{ padding-top:60px; }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .kicker{ font-family:'JetBrains Mono'; font-size:12.5px; color:var(--amber-glow); letter-spacing:1px; margin-bottom:14px; }
+  h2{ font-family:'Sora'; font-weight:700; font-size:clamp(28px,3.4vw,42px); letter-spacing:-1px; line-height:1.15; }
+  .section-head p{ color:var(--muted); margin-top:16px; font-size:15.5px; line-height:1.7; }
+
+  .dual-wrap{
+    display:grid; grid-template-columns:1fr 1fr; gap:24px;
+    perspective:1600px;
+  }
+  .dual-panel{
+    position:relative; border-radius:20px; padding:38px 32px; min-height:340px;
+    border:1px solid var(--line); overflow:hidden;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
+    transform-style:preserve-3d;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .dual-panel:hover{ transform: rotateY(-4deg) rotateX(2deg) translateY(-8px) scale(1.01); }
+  .panel-empresas{
+    background: radial-gradient(circle at 20% 0%, rgba(59,110,246,0.22), transparent 55%), var(--panel);
+  }
+  .panel-empresas:hover{ box-shadow: -20px 30px 60px rgba(59,110,246,0.25); }
+  .panel-produtos{
+    background: radial-gradient(circle at 80% 0%, rgba(242,169,59,0.2), transparent 55%), var(--panel);
+  }
+  .panel-produtos:hover{ box-shadow: 20px 30px 60px rgba(242,169,59,0.2); }
+  .panel-icon{
+    width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:22px; margin-bottom:22px;
+    transform: translateZ(30px);
+  }
+  .panel-empresas .panel-icon{ background:linear-gradient(140deg, var(--cobalt), #24408f); box-shadow:0 10px 24px rgba(59,110,246,0.4);}
+  .panel-produtos .panel-icon{ background:linear-gradient(140deg, var(--amber), #a86a1a); box-shadow:0 10px 24px rgba(242,169,59,0.35);}
+  .dual-panel h3{ font-family:'Sora'; font-size:23px; font-weight:700; margin-bottom:10px; transform: translateZ(20px);}
+  .dual-panel > p{ color:var(--muted); font-size:14.5px; line-height:1.6; margin-bottom:22px; transform: translateZ(20px); }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; transform: translateZ(20px);}
+  .chip{
+    font-size:12px; padding:7px 12px; border-radius:100px; border:1px solid var(--line);
+    color:var(--ink); background:rgba(255,255,255,0.04); font-weight:500;
+  }
+
+  /* PROCESSO / FUNIL */
+  .funnel{ padding-top:20px; }
+  .funnel-row{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:10px;
+  }
+  .funnel-step{
+    background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:24px 18px;
+    position:relative; transition:transform .3s ease, border-color .3s ease;
+  }
+  .funnel-step:hover{ transform: translateY(-6px) rotateX(4deg); border-color:rgba(59,110,246,0.4); }
+  .funnel-step .num{ font-family:'JetBrains Mono'; font-size:12px; color:var(--amber-glow); margin-bottom:14px; display:block; }
+  .funnel-step h5{ font-family:'Sora'; font-size:14.5px; margin-bottom:6px; }
+  .funnel-step p{ font-size:12.5px; color:var(--muted); line-height:1.5; }
+  .funnel-arrow{ display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:16px; }
+
+  /* PLANOS */
+  .plans{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }  .plan{
+    background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:28px 22px;
+    transition: transform .3s ease, border-color .3s ease;
+  }
+  .plan:hover{ transform:translateY(-6px); border-color:rgba(255,255,255,0.2); }
+  .plan.featured{ border-color:var(--cobalt); background:linear-gradient(180deg, rgba(59,110,246,0.1), var(--panel)); }
+  .plan .ptitle{ font-family:'Sora'; font-weight:600; font-size:15px; margin-bottom:6px;}
+  .plan .price{ font-family:'Sora'; font-weight:700; font-size:26px; margin:10px 0 4px; }
+  .plan .price span{ font-size:12.5px; color:var(--muted); font-weight:500; }
+  .plan .pdesc{ font-size:12.5px; color:var(--muted); line-height:1.6; margin-top:10px;}
+
+  /* QUEM SOMOS */
+  .quemsomos{ padding-top:20px; }
+  .qs-grid{
+    display:grid; grid-template-columns: 0.9fr 1.1fr; gap:50px; align-items:center;
+  }
+  .qs-visual{
+    display:flex; flex-direction:column; gap:20px; perspective:1400px;
+  }
+  .qs-card{
+    position:relative; width:100%; border-radius:18px; padding:24px 26px;
+    border:1px solid var(--line); backdrop-filter:blur(6px);
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    transform-style:preserve-3d;
+  }
+  .qs-card h5{ font-family:'Sora'; font-size:14px; margin-bottom:8px; }
+  .qs-card p{ font-size:12.5px; color:var(--muted); line-height:1.6; }
+  .qs-card .qs-eyebrow{ font-family:'JetBrains Mono'; font-size:10px; color:var(--amber-glow); letter-spacing:1px; margin-bottom:10px; display:block;}
+  .qs1{
+    background:linear-gradient(155deg, rgba(59,110,246,0.28), rgba(19,24,38,0.94));
+    transform: rotateY(3deg) rotateX(1deg);
+    animation: qsfloat1 6s ease-in-out infinite;
+  }
+  .qs2{
+    background:linear-gradient(155deg, rgba(242,169,59,0.24), rgba(19,24,38,0.95));
+    transform: rotateY(-3deg) rotateX(-1deg);
+    animation: qsfloat2 7s ease-in-out infinite;
+  }
+  .qs3{
+    background: rgba(19,24,38,0.96);
+    animation: qsfloat1 8s ease-in-out infinite reverse;
+  }
+  @keyframes qsfloat1{ 0%,100%{ transform: rotateY(3deg) rotateX(1deg) translateY(0);} 50%{ transform: rotateY(3deg) rotateX(1deg) translateY(-8px);} }
+  @keyframes qsfloat2{ 0%,100%{ transform: rotateY(-3deg) rotateX(-1deg) translateY(0);} 50%{ transform: rotateY(-3deg) rotateX(-1deg) translateY(-8px);} }
+
+  .qs-content .kicker{ margin-bottom:12px; }
+  .qs-content p.lead2{ color:var(--muted); font-size:15.5px; line-height:1.75; margin:18px 0 34px; max-width:520px; }
+  .pillars{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .pillar{
+    border-left:2px solid var(--cobalt); padding:6px 0 6px 18px;
+    transition: border-color .3s ease, transform .3s ease;
+  }
+  .pillar:nth-child(2){ border-left-color: var(--amber); }
+  .pillar:nth-child(3){ border-left-color: var(--amber); }
+  .pillar:nth-child(4){ border-left-color: var(--cobalt); }
+  .pillar:hover{ transform: translateX(4px); }
+  .pillar h6{ font-family:'Sora'; font-size:14.5px; font-weight:600; margin-bottom:6px;}
+  .pillar p{ font-size:12.5px; color:var(--muted); line-height:1.6; }
+
+  /* CONTEUDO / CAST */
+  .cast-wrap{
+    position:relative; border-radius:22px; overflow:hidden;
+    border:1px solid var(--line);
+    background: radial-gradient(circle at 15% 20%, rgba(59,110,246,0.16), transparent 55%),
+                radial-gradient(circle at 85% 80%, rgba(242,169,59,0.14), transparent 55%),
+                var(--panel);
+    padding:56px 48px;
+    display:grid; grid-template-columns: 1fr 0.8fr; gap:40px; align-items:center;
+  }
+  .cast-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono'; font-size:11.5px; color:var(--amber-glow);
+    border:1px solid rgba(242,169,59,0.3); background:rgba(242,169,59,0.08);
+    padding:6px 14px; border-radius:100px; margin-bottom:20px; width:fit-content;
+  }
+  .cast-badge .dot{ width:6px; height:6px; border-radius:50%; background:var(--amber-glow); box-shadow:0 0 10px var(--amber-glow); }
+  .cast-wrap h3{ font-family:'Sora'; font-weight:700; font-size:26px; margin-bottom:14px; letter-spacing:-0.5px; }
+  .cast-wrap p{ color:var(--muted); font-size:14.5px; line-height:1.7; max-width:440px; }
+  .cast-player{
+    position:relative; border-radius:16px; aspect-ratio:16/9;
+    border:1px solid var(--line);
+    background:linear-gradient(155deg, rgba(59,110,246,0.15), rgba(10,13,20,0.9));
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;
+    overflow:hidden;
+  }
+  .cast-player::before{
+    content:''; position:absolute; inset:0;
+    background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size:24px 24px;
+  }
+  .cast-playbtn{
+    width:58px; height:58px; border-radius:50%; position:relative; z-index:1;
+    background:linear-gradient(135deg, var(--cobalt), var(--amber));
+    display:flex; align-items:center; justify-content:center; color:#0a0d14; font-size:20px;
+    box-shadow:0 10px 30px rgba(59,110,246,0.4);
+    animation: pulseGlow 2.4s ease-in-out infinite;
+  }
+  @keyframes pulseGlow{ 0%,100%{ box-shadow:0 10px 30px rgba(59,110,246,0.35);} 50%{ box-shadow:0 10px 44px rgba(242,169,59,0.45);} }
+  .cast-player span{ position:relative; z-index:1; font-family:'JetBrains Mono'; font-size:11.5px; color:var(--muted); letter-spacing:0.5px; }
+
+  footer{
+    padding:60px 5% 40px; border-top:1px solid var(--line); position:relative; z-index:1;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
+  }
+  footer .fnote{ color:var(--muted); font-size:13px; }
+  .footer-brand{ font-family:'Sora'; font-weight:700; font-size:16px; }
+
+  @media(max-width:900px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .stack3d{ display:none; }
+    .dual-wrap{ grid-template-columns:1fr; }
+    .funnel-row{ grid-template-columns:1fr 1fr; }
+    .funnel-arrow{ display:none; }
+    .plans{ grid-template-columns:1fr 1fr; }
+    nav{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="noise"></div>
+
+<header>
+  <div class="logo"><div class="mark">AW</div>AWEXPRESS Designer</div>
+  <nav>
+    <a href="#motores">Soluções</a>
+    <a href="#funil">Como funciona</a>
+    <a href="#quemsomos">Quem Somos</a>
+    <a href="#conteudo">Conteúdo</a>
+    <a href="#planos">Planos</a>
+  </nav>
+  <a class="cta-small" href="#contato">Falar no WhatsApp</a>
+</header>
+
+<div class="spotlight"></div>
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> 3 SEGUNDOS PRA VOCÊ DECIDIR</div>
+      <h1>Seu negócio digital, <span class="grad">no ar e vendendo</span> — hoje, não algum dia.</h1>
+      <p class="lead">Site pronto, oferta clara, tráfego funcionando. Sem enrolação, sem promessa vazia — a estrutura que fica com você.</p>
+      <div class="hero-cta">
+        <a class="btn-primary" href="#planos">Quero minha estrutura agora →</a>
+        <a class="btn-ghost" href="#motores">Ver como funciona</a>
+      </div>
+      <div class="decision-bar">
+        <div class="decision-item"><span class="dnum">7 dias</span><span class="dlabel">do briefing ao site no ar</span></div>
+        <div class="decision-item"><span class="dnum">2 motores</span><span class="dlabel">orgânico + pago, mesma base</span></div>
+        <div class="decision-item"><span class="dnum">100%</span><span class="dlabel">seu, sem depender de curso</span></div>
+      </div>
+    </div>
+    <div class="orbit-wrap">
+      <div class="orbit-ring ring2"></div>
+      <div class="orbit-ring ring1"></div>
+      <div class="orbit-core">
+        <div class="orbit-face of1">EMPRESAS</div>
+        <div class="orbit-face of2">PRODUTOS</div>
+        <div class="orbit-face of3">TRÁFEGO</div>
+        <div class="orbit-face of4">DADOS</div>
+      </div>
+      <div class="orbit-dot"></div>
+    </div>
+  </div>
+</section>
+
+<section class="motores" id="motores">
+  <div class="section-head">
+    <div class="kicker">DOIS BRAÇOS, UMA ESTRUTURA</div>
+    <h2>Empresas e produtos, na mesma base técnica.</h2>
+    <p>Ao invés de recomeçar do zero a cada projeto, tudo roda sobre a mesma infraestrutura — mudando apenas a oferta.</p>
+  </div>
+  <div class="dual-wrap">
+    <div class="dual-panel panel-empresas">
+      <div>
+        <div class="panel-icon">🏢</div>
+        <h3>AWEXPRESS para Empresas</h3>
+        <p>Sites institucionais, landing pages e presença digital completa para negócios locais e clínicas — com estrutura pronta para receber tráfego pago.</p>
+      </div>
+      <div class="chip-row">
+        <span class="chip">Sites</span>
+        <span class="chip">Landing Pages</span>
+        <span class="chip">Google/Meta Ads</span>
+        <span class="chip">Manutenção</span>
+      </div>
+    </div>
+    <div class="dual-panel panel-produtos">
+      <div>
+        <div class="panel-icon">📚</div>
+        <h3>AWEXPRESS Produtos</h3>
+        <p>Guias, e-books, cursos e livros publicados com metodologia própria — do manuscrito até a página de vendas, sem depender de fórmula de terceiro.</p>
+      </div>
+      <div class="chip-row">
+        <span class="chip">E-books</span>
+        <span class="chip">Guias práticos</span>
+        <span class="chip">Cursos</span>
+        <span class="chip">Livros</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="funnel" id="funil">
+  <div class="section-head">
+    <div class="kicker">COMO FUNCIONA</div>
+    <h2>Da primeira visita até a nova oferta.</h2>
+    <p>O mesmo caminho recebe quem vem do Google de graça e quem vem de um anúncio pago — sem duplicar estrutura.</p>
+  </div>
+  <div class="funnel-row">
+    <div class="funnel-step"><span class="num">01</span><h5>Tráfego</h5><p>Orgânico ou pago, sempre para a mesma estrutura.</p></div>
+    <div class="funnel-step"><span class="num">02</span><h5>Página</h5><p>Landing page própria para cada oferta específica.</p></div>
+    <div class="funnel-step"><span class="num">03</span><h5>Oferta</h5><p>Solução clara, com preço e promessa objetiva.</p></div>
+    <div class="funnel-step"><span class="num">04</span><h5>Venda</h5><p>WhatsApp ou checkout direto, sem fricção.</p></div>
+    <div class="funnel-step"><span class="num">05</span><h5>Relacionamento</h5><p>Dados próprios para a próxima oferta.</p></div>
+  </div>
+</section>
+
+<section class="quemsomos" id="quemsomos">
+  <div class="qs-grid">
+    <div class="qs-visual">
+      <div class="qs-card qs1">
+        <span class="qs-eyebrow">VISÃO</span>
+        <h5>Onde queremos chegar</h5>
+        <p>Ser a estrutura digital de referência para negócios e criadores que querem crescer sem depender só de anúncio.</p>
+      </div>
+      <div class="qs-card qs2">
+        <span class="qs-eyebrow">MISSÃO</span>
+        <h5>Por que existimos</h5>
+        <p>Transformar ideia em ativo digital real — site, produto e método que continuam gerando resultado sozinhos.</p>
+      </div>
+      <div class="qs-card qs3">
+        <span class="qs-eyebrow">ORIGEM</span>
+        <h5>Adriana &amp; Wagner</h5>
+        <p>Experiência prática em publicação, marketing e construção de sites — não teoria de curso.</p>
+      </div>
+    </div>
+    <div class="qs-content">
+      <div class="kicker">QUEM SOMOS</div>
+      <h2>Uma estrutura construída por quem já passou pelo processo.</h2>
+      <p class="lead2">A AWEXPRESS nasceu da própria experiência de tirar projetos do papel — livros publicados, sites no ar, campanhas testadas com dinheiro real. Não vendemos fórmula pronta: construímos, junto com você, a infraestrutura que sustenta o negócio antes, durante e depois do anúncio.</p>
+      <div class="pillars">
+        <div class="pillar">
+          <h6>Transparência</h6>
+          <p>Sem promessa de ganho fácil. Mostramos o que funciona e o que precisa de ajuste.</p>
+        </div>
+        <div class="pillar">
+          <h6>Ativo, não aluguel</h6>
+          <p>O que construímos fica com você — site, dados e método, não acesso temporário.</p>
+        </div>
+        <div class="pillar">
+          <h6>Prática, não teoria</h6>
+          <p>Cada solução vem de algo que já testamos nos nossos próprios projetos.</p>
+        </div>
+        <div class="pillar">
+          <h6>Crescimento modular</h6>
+          <p>Começa simples e escala por peça, sem precisar reconstruir do zero.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="conteudo" id="conteudo">
+  <div class="cast-wrap">
+    <div>
+      <div class="cast-badge"><span class="dot"></span> EM BREVE</div>
+      <h3>AWEXPRESS Cast — lives e podcast direto daqui.</h3>
+      <p>Estamos preparando o espaço para conversas ao vivo sobre negócios digitais, publicação e bastidores dos projetos. Quando o primeiro episódio for ao ar, ele aparece direto aqui, sem sair do site.</p>
+    </div>
+    <div class="cast-player">
+      <div class="cast-playbtn">▶</div>
+      <span>PRIMEIRO EPISÓDIO EM BREVE</span>
+    </div>
+  </div>
+</section>
+
+<section class="plans-section" id="planos">
+  <div class="section-head">
+    <div class="kicker">SOLUÇÕES PARA EMPRESAS</div>
+    <h2>Planos que crescem com o negócio.</h2>
+  </div>
+  <div class="plans">
+    <div class="plan">
+      <div class="ptitle">Site Simples</div>
+      <div class="price">R$ 700 <span>– R$1.200</span></div>
+      <div class="pdesc">Presença digital com estrutura padrão, pronta para publicar.</div>
+    </div>
+    <div class="plan featured">
+      <div class="ptitle">Site + Ads</div>
+      <div class="price">R$ 1.800 <span>– R$2.500</span></div>
+      <div class="pdesc">Site completo com campanhas Google/Meta configuradas desde o início.</div>
+    </div>
+    <div class="plan">
+      <div class="ptitle">Completo</div>
+      <div class="price">Até R$ 3.500</div>
+      <div class="pdesc">Site, automação, WhatsApp e painel de métricas integrados.</div>
+    </div>
+    <div class="plan">
+      <div class="ptitle">Suporte Mensal</div>
+      <div class="price">R$ 50 <span>– R$150</span></div>
+      <div class="pdesc">Manutenção contínua, ajustes e pequenas atualizações.</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contato">
+  <div class="footer-brand">AWEXPRESS Designer</div>
+  <div class="fnote">Adriana &amp; Wagner — infraestrutura digital para empresas e produtos próprios.</div>
+</footer>
+
+</body>
+</html>
