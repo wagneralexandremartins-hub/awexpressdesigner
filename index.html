@@ -412,18 +412,44 @@
   @keyframes pulseGlow{ 0%,100%{ box-shadow:0 10px 30px rgba(59,110,246,0.35);} 50%{ box-shadow:0 10px 44px rgba(242,169,59,0.45);} }
   .cast-player span{ position:relative; z-index:1; font-family:'JetBrains Mono'; font-size:11.5px; color:var(--muted); letter-spacing:0.5px; }
 
+  /* CONTATO */
+  .contato{ padding-top:20px; }
+  .contato-links{ display:flex; flex-direction:column; gap:16px; }
+  .contato-item{
+    display:flex; align-items:center; gap:16px; text-decoration:none;
+    border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+    background:rgba(255,255,255,0.03);
+    transition: transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .contato-item:hover{ transform:translateX(6px); background:rgba(255,255,255,0.06); }
+  .contato-icon{
+    width:44px; height:44px; border-radius:10px; flex:none;
+    display:flex; align-items:center; justify-content:center; font-size:19px;
+  }
+  .contato-whats .contato-icon{ background:linear-gradient(140deg, var(--cobalt), #24408f); box-shadow:0 8px 20px rgba(59,110,246,0.35); }
+  .contato-whats:hover{ border-color:rgba(59,110,246,0.4); }
+  .contato-email .contato-icon{ background:linear-gradient(140deg, var(--amber), #a86a1a); box-shadow:0 8px 20px rgba(242,169,59,0.3); }
+  .contato-email:hover{ border-color:rgba(242,169,59,0.4); }
+  .contato-label{ display:block; font-family:'JetBrains Mono'; font-size:11px; color:var(--muted); letter-spacing:0.5px; margin-bottom:3px; }
+  .contato-value{ display:block; font-family:'Sora'; font-size:15px; font-weight:600; color:var(--ink); }
+
   footer{
     padding:60px 5% 40px; border-top:1px solid var(--line); position:relative; z-index:1;
     display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
   }
   footer .fnote{ color:var(--muted); font-size:13px; }
   .footer-brand{ font-family:'Sora'; font-weight:700; font-size:16px; }
+  .footer-contact{ display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted); }
+  .footer-contact a{ color:var(--muted); text-decoration:none; transition:color .2s ease; }
+  .footer-contact a:hover{ color:var(--cobalt-glow); }
+  .footer-contact .fdot{ opacity:0.4; }
 
   @media(max-width:900px){
     .hero-grid{ grid-template-columns:1fr; }
     .stack3d{ display:none; }
     .dual-wrap{ grid-template-columns:1fr; }
     .projetos-grid{ grid-template-columns:1fr; }
+    .cast-wrap{ grid-template-columns:1fr; }
     .funnel-row{ grid-template-columns:1fr 1fr; }
     .funnel-arrow{ display:none; }
     .plans{ grid-template-columns:1fr 1fr; }
@@ -446,7 +472,7 @@
     <a href="#conteudo">Conteúdo</a>
     <a href="#planos">Planos</a>
   </nav>
-  <a class="cta-small" href="#contato">Falar no WhatsApp</a>
+  <a class="cta-small" href="https://wa.me/5521975490786" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
 </header>
 
 <div class="spotlight"></div>
@@ -647,8 +673,39 @@
   </div>
 </section>
 
-<footer id="contato">
+<section class="contato" id="contato">
+  <div class="cast-wrap">
+    <div>
+      <div class="kicker">FALE COM A GENTE</div>
+      <h3>Bora tirar sua estrutura do papel?</h3>
+      <p>Chama no WhatsApp ou manda um e-mail — resposta rápida, sem enrolação.</p>
+    </div>
+    <div class="contato-links">
+      <a class="contato-item contato-whats" href="https://wa.me/5521975490786" target="_blank" rel="noopener noreferrer">
+        <div class="contato-icon">💬</div>
+        <div>
+          <span class="contato-label">WhatsApp</span>
+          <span class="contato-value">(21) 97549-0786</span>
+        </div>
+      </a>
+      <a class="contato-item contato-email" href="mailto:wagneralexandre.martins@gmail.com">
+        <div class="contato-icon">✉️</div>
+        <div>
+          <span class="contato-label">E-mail</span>
+          <span class="contato-value">wagneralexandre.martins@gmail.com</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
   <div class="footer-brand">AWEXPRESS Designer</div>
+  <div class="footer-contact">
+    <a href="https://wa.me/5521975490786" target="_blank" rel="noopener noreferrer">(21) 97549-0786</a>
+    <span class="fdot">•</span>
+    <a href="mailto:wagneralexandre.martins@gmail.com">wagneralexandre.martins@gmail.com</a>
+  </div>
   <div class="fnote">Adriana &amp; Wagner — infraestrutura digital para empresas e produtos próprios.</div>
 </footer>
 
