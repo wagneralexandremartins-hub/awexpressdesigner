@@ -328,6 +328,49 @@
   .pillar h6{ font-family:'Sora'; font-size:14.5px; font-weight:600; margin-bottom:6px;}
   .pillar p{ font-size:12.5px; color:var(--muted); line-height:1.6; }
 
+  /* PROJETOS REALIZADOS */
+  .projetos{ padding-top:20px; }
+  .projetos-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:24px;
+    perspective:1600px;
+  }
+  .projeto-card{
+    position:relative; border-radius:20px; padding:34px 30px; min-height:280px;
+    border:1px solid var(--line); overflow:hidden;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
+    transform-style:preserve-3d;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .projeto-card:hover{ transform: rotateY(-4deg) rotateX(2deg) translateY(-8px) scale(1.01); }
+  .projeto-1{
+    background: radial-gradient(circle at 20% 0%, rgba(59,110,246,0.22), transparent 55%), var(--panel);
+  }
+  .projeto-1:hover{ box-shadow: -20px 30px 60px rgba(59,110,246,0.25); }
+  .projeto-2{
+    background: radial-gradient(circle at 80% 0%, rgba(242,169,59,0.2), transparent 55%), var(--panel);
+  }
+  .projeto-2:hover{ box-shadow: 20px 30px 60px rgba(242,169,59,0.2); }
+  .projeto-icon{
+    width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:22px; margin-bottom:20px;
+    transform: translateZ(30px);
+  }
+  .projeto-1 .projeto-icon{ background:linear-gradient(140deg, var(--cobalt), #24408f); box-shadow:0 10px 24px rgba(59,110,246,0.4);}
+  .projeto-2 .projeto-icon{ background:linear-gradient(140deg, var(--amber), #a86a1a); box-shadow:0 10px 24px rgba(242,169,59,0.35);}
+  .projeto-tag{
+    font-family:'JetBrains Mono'; font-size:10.5px; letter-spacing:1px; opacity:0.6;
+    display:block; margin-bottom:12px; transform: translateZ(20px);
+  }
+  .projeto-card h3{ font-family:'Sora'; font-size:22px; font-weight:700; margin-bottom:10px; transform: translateZ(20px); }
+  .projeto-card p{ color:var(--muted); font-size:14.5px; line-height:1.6; margin-bottom:24px; transform: translateZ(20px); }
+  .projeto-link{
+    display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600;
+    text-decoration:none; transform: translateZ(20px); transition: gap .25s ease, opacity .25s ease;
+  }
+  .projeto-1 .projeto-link{ color:var(--cobalt-glow); }
+  .projeto-2 .projeto-link{ color:var(--amber-glow); }
+  .projeto-link:hover{ gap:11px; }
+
   /* CONTEUDO / CAST */
   .cast-wrap{
     position:relative; border-radius:22px; overflow:hidden;
@@ -380,6 +423,7 @@
     .hero-grid{ grid-template-columns:1fr; }
     .stack3d{ display:none; }
     .dual-wrap{ grid-template-columns:1fr; }
+    .projetos-grid{ grid-template-columns:1fr; }
     .funnel-row{ grid-template-columns:1fr 1fr; }
     .funnel-arrow{ display:none; }
     .plans{ grid-template-columns:1fr 1fr; }
@@ -398,6 +442,7 @@
     <a href="#motores">Soluções</a>
     <a href="#funil">Como funciona</a>
     <a href="#quemsomos">Quem Somos</a>
+    <a href="#projetos">Projetos</a>
     <a href="#conteudo">Conteúdo</a>
     <a href="#planos">Planos</a>
   </nav>
@@ -527,6 +572,34 @@
           <p>Começa simples e escala por peça, sem precisar reconstruir do zero.</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="projetos" id="projetos">
+  <div class="section-head">
+    <div class="kicker">PROJETOS REALIZADOS</div>
+    <h2>Estruturas no ar, do briefing ao resultado.</h2>
+    <p>Alguns dos projetos já publicados com a metodologia AWEXPRESS — cada um com sua própria oferta, rodando sobre a mesma base técnica.</p>
+  </div>
+  <div class="projetos-grid">
+    <div class="projeto-card projeto-1">
+      <div>
+        <div class="projeto-icon">🙏</div>
+        <span class="projeto-tag">365GRACAEADORACAO.COM</span>
+        <h3>365 Graça &amp; Adoração</h3>
+        <p>Plataforma editorial com estudo bíblico diário, capítulo a capítulo — exegese, contexto histórico e reflexão teológica, publicada e atualizada continuamente.</p>
+      </div>
+      <a class="projeto-link" href="https://365gracaeadoracao.com" target="_blank" rel="noopener noreferrer">Visitar site →</a>
+    </div>
+    <div class="projeto-card projeto-2">
+      <div>
+        <div class="projeto-icon">✈️</div>
+        <span class="projeto-tag">AGENCIAPAULOROGERIOTUR.COM.BR</span>
+        <h3>Agência Paulo Rogério Tur</h3>
+        <p>Site institucional para agência de turismo, com apresentação de pacotes e canal direto de atendimento para fechar viagens sem fricção.</p>
+      </div>
+      <a class="projeto-link" href="https://agenciapaulorogeriotur.com.br" target="_blank" rel="noopener noreferrer">Visitar site →</a>
     </div>
   </div>
 </section>
