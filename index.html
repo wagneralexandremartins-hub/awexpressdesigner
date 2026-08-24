@@ -332,16 +332,34 @@
   .funnel-arrow{ display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:16px; }
 
   /* PLANOS */
-  .plans{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }  .plan{
+  .plans{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+  .plan{
     background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:28px 22px;
     transition: transform .3s ease, border-color .3s ease;
+    display:flex; flex-direction:column;
   }
   .plan:hover{ transform:translateY(-6px); border-color:rgba(255,255,255,0.2); }
   .plan.featured{ border-color:var(--cobalt); background:linear-gradient(180deg, rgba(59,110,246,0.1), var(--panel)); }
+  .plan-badge{
+    display:inline-block; width:fit-content; font-family:'JetBrains Mono'; font-size:10px; letter-spacing:0.5px;
+    color:var(--cobalt-glow); background:rgba(59,110,246,0.12); border:1px solid rgba(59,110,246,0.3);
+    padding:4px 10px; border-radius:100px; margin-bottom:14px;
+  }
   .plan .ptitle{ font-family:'Sora'; font-weight:600; font-size:15px; margin-bottom:6px;}
-  .plan .price{ font-family:'Sora'; font-weight:700; font-size:26px; margin:10px 0 4px; }
+  .plan-audience{ font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:2px; }
+  .plan .price{ font-family:'Sora'; font-weight:700; font-size:26px; margin:12px 0 4px; }
   .plan .price span{ font-size:12.5px; color:var(--muted); font-weight:500; }
-  .plan .pdesc{ font-size:12.5px; color:var(--muted); line-height:1.6; margin-top:10px;}
+  .plan-features{ list-style:none; display:flex; flex-direction:column; gap:8px; margin:16px 0 4px; }
+  .plan-features li{ font-size:12.5px; color:var(--ink); line-height:1.5; padding-left:16px; position:relative; }
+  .plan-features li::before{ content:'✓'; position:absolute; left:0; top:1px; color:var(--amber-glow); font-weight:700; font-size:11px; }
+  .plan-timeline{ font-family:'JetBrains Mono'; font-size:10.5px; color:var(--muted); margin-top:6px; }
+  .plan-cta{
+    margin-top:18px; padding-top:16px; border-top:1px solid var(--line);
+    display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
+    color:var(--cobalt-glow); text-decoration:none; transition:gap .25s ease;
+  }
+  .plan.featured .plan-cta{ color:var(--amber-glow); }
+  .plan-cta:hover{ gap:11px; }
 
   /* QUEM SOMOS */
   .quemsomos{ padding-top:20px; }
@@ -424,8 +442,16 @@
     font-family:'JetBrains Mono'; font-size:10.5px; letter-spacing:1px; opacity:0.6;
     display:block; margin-bottom:12px; transform: translateZ(20px);
   }
-  .projeto-card h3{ font-family:'Sora'; font-size:22px; font-weight:700; margin-bottom:10px; transform: translateZ(20px); }
-  .projeto-card p{ color:var(--muted); font-size:14.5px; line-height:1.6; margin-bottom:24px; transform: translateZ(20px); }
+  .projeto-card h3{ font-family:'Sora'; font-size:22px; font-weight:700; margin-bottom:8px; transform: translateZ(20px); }
+  .projeto-segmento{
+    display:block; font-size:12px; color:var(--muted); font-weight:500; margin-bottom:14px; transform: translateZ(20px);
+  }
+  .projeto-card p{ color:var(--muted); font-size:14.5px; line-height:1.6; margin-bottom:18px; transform: translateZ(20px); }
+  .projeto-ds{
+    display:flex; flex-direction:column; gap:8px; margin-bottom:24px; transform: translateZ(20px);
+    font-size:12.5px; color:var(--muted); line-height:1.55;
+  }
+  .projeto-ds strong{ color:var(--ink); font-weight:600; }
   .projeto-link{
     display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:600;
     text-decoration:none; transform: translateZ(20px); transition: gap .25s ease, opacity .25s ease;
@@ -475,6 +501,30 @@
   @keyframes pulseGlow{ 0%,100%{ box-shadow:0 10px 30px rgba(59,110,246,0.35);} 50%{ box-shadow:0 10px 44px rgba(242,169,59,0.45);} }
   .cast-player span{ position:relative; z-index:1; font-family:'JetBrains Mono'; font-size:11.5px; color:var(--muted); letter-spacing:0.5px; }
 
+  /* PROCESSO (COMO FUNCIONA) */
+  .processo-row{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:10px;
+  }
+
+  /* PROVA DE CONFIANÇA */
+  .kicker-center{ text-align:center; }
+  .confianca-box{ max-width:780px; margin:0 auto; text-align:center; }
+  .confianca-line{
+    font-family:'Sora'; font-weight:600; font-size:clamp(17px,2.2vw,24px); color:var(--ink); line-height:1.6;
+  }
+  .confianca-line .cdot{ color:var(--amber-glow); margin:0 12px; font-weight:400; }
+
+  /* CTA FINAL */
+  .ctafinal-box{
+    max-width:720px; margin:0 auto; text-align:center; padding:64px 44px; border-radius:24px;
+    border:1px solid var(--line);
+    background: radial-gradient(circle at 25% 0%, rgba(59,110,246,0.18), transparent 55%),
+                radial-gradient(circle at 75% 100%, rgba(242,169,59,0.16), transparent 55%),
+                var(--panel);
+  }
+  .ctafinal-box h2{ margin-bottom:18px; }
+  .ctafinal-box p{ color:var(--muted); font-size:15.5px; line-height:1.7; margin:0 auto 34px; max-width:480px; }
+
   /* CONTATO */
   .contato{ padding-top:20px; }
   .contato-links{ display:flex; flex-direction:column; gap:16px; }
@@ -521,6 +571,8 @@
     .transform-wrap{ grid-template-columns:1fr; }
     .transform-arrow{ transform:rotate(90deg); justify-self:center; }
     .ativo-banner{ flex-direction:column; align-items:flex-start; }
+    .processo-row{ grid-template-columns:1fr 1fr; }
+    .ctafinal-box{ padding:44px 24px; }
   }
 </style>
 </head>
@@ -757,7 +809,12 @@
         <div class="projeto-icon">🙏</div>
         <span class="projeto-tag">365GRACAEADORACAO.COM</span>
         <h3>365 Graça &amp; Adoração</h3>
+        <span class="projeto-segmento">Plataforma editorial · Conteúdo bíblico</span>
         <p>Plataforma editorial com estudo bíblico diário, capítulo a capítulo — exegese, contexto histórico e reflexão teológica, publicada e atualizada continuamente.</p>
+        <div class="projeto-ds">
+          <div><strong>Desafio:</strong> organizar e publicar um grande volume de conteúdo bíblico diário de forma acessível e fácil de navegar.</div>
+          <div><strong>Solução:</strong> estrutura própria de blocos e páginas padronizadas, com navegação clara entre capítulos e idiomas.</div>
+        </div>
       </div>
       <a class="projeto-link" href="https://365gracaeadoracao.com" target="_blank" rel="noopener noreferrer">Visitar site →</a>
     </div>
@@ -766,10 +823,29 @@
         <div class="projeto-icon">✈️</div>
         <span class="projeto-tag">AGENCIAPAULOROGERIOTUR.COM.BR</span>
         <h3>Agência Paulo Rogério Tur</h3>
+        <span class="projeto-segmento">Turismo · Agência de viagens</span>
         <p>Site institucional para agência de turismo, com apresentação de pacotes e canal direto de atendimento para fechar viagens sem fricção.</p>
+        <div class="projeto-ds">
+          <div><strong>Desafio:</strong> apresentar pacotes de viagem com um canal de contato direto, sem depender só de redes sociais.</div>
+          <div><strong>Solução:</strong> site institucional com apresentação clara dos pacotes e botão direto para o WhatsApp.</div>
+        </div>
       </div>
       <a class="projeto-link" href="https://agenciapaulorogeriotur.com.br" target="_blank" rel="noopener noreferrer">Visitar site →</a>
     </div>
+  </div>
+</section>
+
+<section class="processo" id="processo">
+  <div class="section-head">
+    <div class="kicker">COMO FUNCIONA</div>
+    <h2>Do primeiro contato ao site no ar.</h2>
+    <p>Um caminho simples, sem burocracia, do briefing até a publicação.</p>
+  </div>
+  <div class="processo-row">
+    <div class="funnel-step"><span class="num">01</span><h5>Você apresenta seu negócio</h5><p>Conta pra gente o que você faz e o que precisa.</p></div>
+    <div class="funnel-step"><span class="num">02</span><h5>Definimos a estrutura</h5><p>Escolhemos juntos o que faz sentido: site, landing page, tráfego.</p></div>
+    <div class="funnel-step"><span class="num">03</span><h5>Desenvolvemos e ajustamos</h5><p>Construção com pontos de revisão até ficar do jeito certo.</p></div>
+    <div class="funnel-step"><span class="num">04</span><h5>Colocamos seu projeto no ar</h5><p>Site publicado e pronto para receber visita.</p></div>
   </div>
 </section>
 
@@ -795,24 +871,67 @@
   <div class="plans">
     <div class="plan">
       <div class="ptitle">Site Simples</div>
+      <div class="plan-audience">Para quem precisa de presença digital básica, pronta para publicar.</div>
       <div class="price">R$ 700 <span>– R$1.200</span></div>
-      <div class="pdesc">Presença digital com estrutura padrão, pronta para publicar.</div>
+      <ul class="plan-features">
+        <li>Site institucional simples</li>
+        <li>Design responsivo</li>
+        <li>Estrutura pronta para publicar</li>
+      </ul>
+      <div class="plan-timeline">⏱ ~7 dias após o briefing</div>
+      <a class="plan-cta" href="https://wa.me/5521975490786?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20plano%20Site%20Simples." target="_blank" rel="noopener noreferrer">Quero esse plano →</a>
     </div>
     <div class="plan featured">
+      <span class="plan-badge">Recomendado</span>
       <div class="ptitle">Site + Ads</div>
+      <div class="plan-audience">Para quem já quer sair vendendo, não só publicar — reúne site e tráfego pago desde o início.</div>
       <div class="price">R$ 1.800 <span>– R$2.500</span></div>
-      <div class="pdesc">Site completo com campanhas Google/Meta configuradas desde o início.</div>
+      <ul class="plan-features">
+        <li>Site completo</li>
+        <li>Campanhas Google/Meta configuradas</li>
+        <li>Estrutura pronta para tráfego pago</li>
+      </ul>
+      <div class="plan-timeline">⏱ ~7 dias após o briefing</div>
+      <a class="plan-cta" href="https://wa.me/5521975490786?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20plano%20Site%20%2B%20Ads." target="_blank" rel="noopener noreferrer">Quero esse plano →</a>
     </div>
     <div class="plan">
       <div class="ptitle">Completo</div>
+      <div class="plan-audience">Para quem quer site, automação e dados reunidos num só lugar.</div>
       <div class="price">Até R$ 3.500</div>
-      <div class="pdesc">Site, automação, WhatsApp e painel de métricas integrados.</div>
+      <ul class="plan-features">
+        <li>Site completo</li>
+        <li>Automação</li>
+        <li>Integração com WhatsApp</li>
+        <li>Painel de métricas</li>
+      </ul>
+      <a class="plan-cta" href="https://wa.me/5521975490786?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20plano%20Completo." target="_blank" rel="noopener noreferrer">Quero esse plano →</a>
     </div>
     <div class="plan">
       <div class="ptitle">Suporte Mensal</div>
-      <div class="price">R$ 50 <span>– R$150</span></div>
-      <div class="pdesc">Manutenção contínua, ajustes e pequenas atualizações.</div>
+      <div class="plan-audience">Para quem já tem site publicado e quer manutenção contínua.</div>
+      <div class="price">R$ 50 <span>– R$150 /mês</span></div>
+      <ul class="plan-features">
+        <li>Pequenas alterações</li>
+        <li>Atualizações e correções</li>
+        <li>Orientação sob demanda</li>
+      </ul>
+      <a class="plan-cta" href="https://wa.me/5521975490786?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20Suporte%20Mensal." target="_blank" rel="noopener noreferrer">Quero esse plano →</a>
     </div>
+  </div>
+</section>
+
+<section class="confianca" id="confianca">
+  <div class="confianca-box">
+    <div class="kicker kicker-center">EXPERIÊNCIA REAL, NÃO TEORIA</div>
+    <p class="confianca-line">Livros publicados <span class="cdot">•</span> Sites no ar <span class="cdot">•</span> Campanhas testadas com dinheiro real</p>
+  </div>
+</section>
+
+<section class="ctafinal" id="ctafinal">
+  <div class="ctafinal-box">
+    <h2>Seu negócio já existe. <span class="grad">Agora ele precisa existir também no digital.</span></h2>
+    <p>Conte o que você faz e vamos identificar a estrutura digital que faz sentido para o seu negócio.</p>
+    <a class="btn-primary" href="https://wa.me/5521975490786?text=Ol%C3%A1!%20Quero%20conversar%20sobre%20o%20meu%20projeto." target="_blank" rel="noopener noreferrer">Quero conversar sobre meu projeto →</a>
   </div>
 </section>
 
