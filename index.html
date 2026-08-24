@@ -561,6 +561,38 @@
   .contato-label{ display:block; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:0.5px; margin-bottom:3px; }
   .contato-value{ display:block; font-family:'Sora', sans-serif; font-size:15px; font-weight:600; color:var(--ink); }
 
+  /* PRIVACIDADE */
+  .privacidade{ padding-top:20px; }
+  .privacy-content{ max-width:680px; }
+  .privacy-content p{ color:var(--muted); font-size:14px; line-height:1.75; margin-bottom:16px; }
+  .privacy-content a{ color:var(--cobalt-glow); }
+
+  /* COOKIE BANNER */
+  .cookie-banner{
+    position:fixed; left:20px; right:20px; bottom:20px; z-index:200;
+    max-width:640px; margin:0 auto;
+    background:var(--panel); border:1px solid var(--line); border-radius:14px;
+    padding:18px 20px; box-shadow:0 20px 50px rgba(0,0,0,0.5);
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    transform:translateY(140%); opacity:0; pointer-events:none;
+    transition:transform .4s ease, opacity .4s ease;
+  }
+  .cookie-banner.show{ transform:translateY(0); opacity:1; pointer-events:auto; }
+  .cookie-banner p{ flex:1; min-width:220px; font-size:12.5px; color:var(--muted); line-height:1.6; margin:0; }
+  .cookie-banner p a{ color:var(--cobalt-glow); text-decoration:underline; }
+  .cookie-actions{ display:flex; gap:10px; flex:none; }
+  .cookie-btn{
+    background:linear-gradient(100deg, var(--cobalt), #2f5bd6); color:#fff; border:none; cursor:pointer;
+    padding:10px 22px; border-radius:8px; font-weight:600; font-size:13px; font-family:'Inter', sans-serif;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .cookie-btn:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(59,110,246,0.35); }
+
+  @media(max-width:520px){
+    .cookie-banner{ left:12px; right:12px; bottom:12px; padding:16px; flex-direction:column; align-items:stretch; }
+    .cookie-actions{ justify-content:flex-end; }
+  }
+
   footer{
     padding:60px 5% 40px; border-top:1px solid var(--line); position:relative; z-index:1;
     display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
@@ -991,15 +1023,55 @@
   </div>
 </section>
 
+<section class="privacidade" id="privacidade">
+  <div class="section-head">
+    <div class="kicker">PRIVACIDADE</div>
+    <h2>Política de Privacidade</h2>
+  </div>
+  <div class="privacy-content">
+    <p>Este site é operado por Adriana &amp; Wagner (AWEXPRESS Designer) e não utiliza cookies de rastreamento, publicidade ou análise de comportamento.</p>
+    <p>Usamos o armazenamento local do navegador (localStorage) apenas para lembrar que você já visualizou o aviso de cookies desta página — nenhum dado pessoal é coletado, armazenado em servidor ou compartilhado com terceiros por esse meio.</p>
+    <p>As fontes do site são carregadas via Google Fonts, serviço que pode processar o endereço IP do visitante conforme a política de privacidade do Google.</p>
+    <p>Ao entrar em contato pelo WhatsApp ou e-mail, essa conversa passa a ser tratada diretamente pela respectiva plataforma (Meta/WhatsApp ou seu provedor de e-mail), sujeita aos termos e políticas de privacidade delas.</p>
+    <p>Dúvidas sobre privacidade podem ser enviadas para <a href="mailto:wagneralexandre.martins@gmail.com">wagneralexandre.martins@gmail.com</a>.</p>
+  </div>
+</section>
+
 <footer>
   <div class="footer-brand">AWEXPRESS Designer</div>
   <div class="footer-contact">
     <a href="https://wa.me/5521975490786" target="_blank" rel="noopener noreferrer">(21) 97549-0786</a>
     <span class="fdot">•</span>
     <a href="mailto:wagneralexandre.martins@gmail.com">wagneralexandre.martins@gmail.com</a>
+    <span class="fdot">•</span>
+    <a href="#privacidade">Privacidade</a>
   </div>
   <div class="fnote">Adriana &amp; Wagner — infraestrutura digital para empresas e produtos próprios.</div>
 </footer>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+  <p>Este site usa cookies e armazenamento local para melhorar sua experiência de navegação. <a href="#privacidade">Saiba mais</a>.</p>
+  <div class="cookie-actions">
+    <button class="cookie-btn" id="cookieAccept" type="button">Aceitar</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY = "awx_cookie_consent";
+  var banner = document.getElementById("cookieBanner");
+  if (!banner) return;
+  var accepted = false;
+  try { accepted = localStorage.getItem(KEY) === "accepted"; } catch(e) {}
+  if (!accepted) {
+    window.requestAnimationFrame(function(){ banner.classList.add("show"); });
+  }
+  document.getElementById("cookieAccept").addEventListener("click", function(){
+    banner.classList.remove("show");
+    try { localStorage.setItem(KEY, "accepted"); } catch(e) {}
+  });
+})();
+</script>
 
 </body>
 </html>
