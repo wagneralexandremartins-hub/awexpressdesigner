@@ -3,9 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AWEXPRESS Designer</title>
+<title>AWEXPRESS Designer | Sites e Landing Pages que Vendem</title>
+<meta name="description" content="Sites profissionais, landing pages, presença no Google, WhatsApp e campanhas de tráfego pago para pequenas empresas, negócios locais, autônomos e autores. Site no ar em cerca de 7 dias.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0d14">
+<link rel="canonical" href="https://awexpressdesigner.com.br/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233b6ef6'/%3E%3Cstop offset='1' stop-color='%23f2a93b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='800' font-size='26' fill='%230a0d14' text-anchor='middle'%3EAW%3C/text%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AWEXPRESS Designer">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://awexpressdesigner.com.br/">
+<meta property="og:title" content="AWEXPRESS Designer | Sites e Landing Pages que Vendem">
+<meta property="og:description" content="Sites profissionais, landing pages, presença no Google, WhatsApp e campanhas de tráfego pago para pequenas empresas, negócios locais, autônomos e autores.">
+<meta property="og:image" content="https://awexpressdesigner.com.br/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AWEXPRESS Designer — Seu negócio digital, no ar e vendendo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AWEXPRESS Designer | Sites e Landing Pages que Vendem">
+<meta name="twitter:description" content="Sites profissionais, landing pages, presença no Google, WhatsApp e campanhas de tráfego pago para pequenas empresas, negócios locais, autônomos e autores.">
+<meta name="twitter:image" content="https://awexpressdesigner.com.br/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AWEXPRESS Designer",
+  "url": "https://awexpressdesigner.com.br/",
+  "description": "Sites profissionais, landing pages, presença digital no Google, integração com WhatsApp e campanhas de tráfego pago para pequenas empresas, negócios locais, autônomos e autores.",
+  "email": "wagneralexandre.martins@gmail.com",
+  "telephone": "+5521975490786",
+  "areaServed": "BR",
+  "founder": [
+    { "@type": "Person", "name": "Wagner" },
+    { "@type": "Person", "name": "Adriana" }
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+5521975490786",
+    "contactType": "customer service",
+    "areaServed": "BR",
+    "availableLanguage": "Portuguese"
+  }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg: #0a0d14;
@@ -20,12 +66,14 @@
     --line: rgba(255,255,255,0.08);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; overflow-x:hidden; width:100%;}
   body{
     background: var(--bg);
     color: var(--ink);
     font-family:'Inter', sans-serif;
     overflow-x:hidden;
+    width:100%;
+    overflow-wrap:break-word;
     -webkit-font-smoothing:antialiased;
   }
   ::selection{ background: var(--cobalt); color:#fff; }
@@ -78,7 +126,7 @@
     position:absolute; inset:0; border-radius:20px;
     border:1px solid rgba(255,255,255,0.15);
     display:flex; align-items:center; justify-content:center;
-    font-family:'Sora'; font-weight:800; font-size:15px; letter-spacing:1px;
+    font-family:'Sora', sans-serif; font-weight:800; font-size:15px; letter-spacing:1px;
     backdrop-filter: blur(4px);
   }
   .of1{ background:linear-gradient(135deg, rgba(59,110,246,0.5), rgba(59,110,246,0.1)); transform: translateZ(110px); box-shadow:0 0 60px rgba(59,110,246,0.35);}
@@ -107,17 +155,17 @@
     border-top:1px solid var(--line);
   }
   .decision-item{ display:flex; flex-direction:column; gap:2px; }
-  .decision-item .dnum{ font-family:'Sora'; font-weight:800; font-size:22px; color:var(--ink); }
+  .decision-item .dnum{ font-family:'Sora', sans-serif; font-weight:800; font-size:22px; color:var(--ink); }
   .decision-item .dlabel{ font-size:12px; color:var(--muted); }
   .logo{
-    font-family:'Sora'; font-weight:800; font-size:19px; letter-spacing:0.5px;
+    font-family:'Sora', sans-serif; font-weight:800; font-size:19px; letter-spacing:0.5px;
     display:flex; align-items:center; gap:10px;
   }
   .logo .mark{
     width:30px; height:30px; border-radius:8px;
     background:linear-gradient(135deg, var(--cobalt), var(--amber));
     display:flex; align-items:center; justify-content:center;
-    font-family:'Sora'; font-weight:800; font-size:14px; color:#0a0d14;
+    font-family:'Sora', sans-serif; font-weight:800; font-size:14px; color:#0a0d14;
     transform: perspective(200px) rotateY(20deg);
     box-shadow: 0 6px 18px rgba(59,110,246,0.35);
   }
@@ -144,7 +192,7 @@
   }
   .eyebrow{
     display:inline-flex; align-items:center; gap:8px;
-    font-family:'JetBrains Mono'; font-size:12px; color:var(--cobalt-glow);
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--cobalt-glow);
     border:1px solid rgba(59,110,246,0.3); background:rgba(59,110,246,0.08);
     padding:6px 14px; border-radius:100px; margin-bottom:28px; width:fit-content;
   }
@@ -152,7 +200,7 @@
 
   .hero-grid{ display:grid; grid-template-columns: 1.15fr 0.85fr; gap:60px; align-items:center; }
   h1{
-    font-family:'Sora'; font-weight:700; font-size:clamp(38px, 5.2vw, 68px);
+    font-family:'Sora', sans-serif; font-weight:700; font-size:clamp(38px, 5.2vw, 68px);
     line-height:1.05; letter-spacing:-1.5px;
   }
   h1 .grad{
@@ -177,45 +225,11 @@
   }
   .btn-ghost:hover{ background:rgba(255,255,255,0.06); border-color:rgba(255,255,255,0.2); }
 
-  /* 3D STACK VISUAL */
-  .stack3d{
-    position:relative; height:420px;
-    transform-style:preserve-3d;
-    transform: rotateX(8deg) rotateY(-18deg);
-    animation: floatStack 7s ease-in-out infinite;
-  }
-  @keyframes floatStack{
-    0%,100%{ transform: rotateX(8deg) rotateY(-18deg) translateY(0px); }
-    50%{ transform: rotateX(10deg) rotateY(-14deg) translateY(-14px); }
-  }
-  .card3d{
-    position:absolute; width:280px; height:170px; border-radius:16px;
-    border:1px solid rgba(255,255,255,0.12);
-    backdrop-filter: blur(6px);
-    padding:20px; display:flex; flex-direction:column; justify-content:space-between;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-  }
-  .card3d h4{ font-family:'Sora'; font-size:15px; font-weight:600; }
-  .card3d p{ font-size:12px; color:var(--muted); }
-  .card3d .tag{ font-family:'JetBrains Mono'; font-size:10px; letter-spacing:1px; opacity:0.7;}
-  .c1{
-    background:linear-gradient(155deg, rgba(59,110,246,0.35), rgba(19,24,38,0.9));
-    top:10px; left:40px; transform: translateZ(80px);
-  }
-  .c2{
-    background:linear-gradient(155deg, rgba(242,169,59,0.3), rgba(19,24,38,0.92));
-    top:120px; left:170px; transform: translateZ(40px);
-  }
-  .c3{
-    background: rgba(19,24,38,0.95);
-    top:230px; left:60px; transform: translateZ(0px);
-  }
-
   /* MOTORES / DUAL PANEL SIGNATURE */
   .motores{ padding-top:60px; }
   .section-head{ max-width:640px; margin-bottom:56px; }
-  .kicker{ font-family:'JetBrains Mono'; font-size:12.5px; color:var(--amber-glow); letter-spacing:1px; margin-bottom:14px; }
-  h2{ font-family:'Sora'; font-weight:700; font-size:clamp(28px,3.4vw,42px); letter-spacing:-1px; line-height:1.15; }
+  .kicker{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--amber-glow); letter-spacing:1px; margin-bottom:14px; }
+  h2{ font-family:'Sora', sans-serif; font-weight:700; font-size:clamp(28px,3.4vw,42px); letter-spacing:-1px; line-height:1.15; }
   .section-head p{ color:var(--muted); margin-top:16px; font-size:15.5px; line-height:1.7; }
 
   .dual-wrap{
@@ -223,7 +237,7 @@
     perspective:1600px;
   }
   .dual-panel{
-    position:relative; border-radius:20px; padding:38px 32px; min-height:340px;
+    position:relative; border-radius:20px; padding:38px 32px; min-height:340px; min-width:0;
     border:1px solid var(--line); overflow:hidden;
     transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
     transform-style:preserve-3d;
@@ -245,7 +259,7 @@
   }
   .panel-empresas .panel-icon{ background:linear-gradient(140deg, var(--cobalt), #24408f); box-shadow:0 10px 24px rgba(59,110,246,0.4);}
   .panel-produtos .panel-icon{ background:linear-gradient(140deg, var(--amber), #a86a1a); box-shadow:0 10px 24px rgba(242,169,59,0.35);}
-  .dual-panel h3{ font-family:'Sora'; font-size:23px; font-weight:700; margin-bottom:10px; transform: translateZ(20px);}
+  .dual-panel h3{ font-family:'Sora', sans-serif; font-size:23px; font-weight:700; margin-bottom:10px; transform: translateZ(20px);}
   .dual-panel > p{ color:var(--muted); font-size:14.5px; line-height:1.6; margin-bottom:22px; transform: translateZ(20px); }
   .chip-row{ display:flex; flex-wrap:wrap; gap:8px; transform: translateZ(20px);}
   .chip{
@@ -258,6 +272,7 @@
   .service-card{
     background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:26px 22px;
     transition: transform .3s ease, border-color .3s ease;
+    min-width:0;
   }
   .service-card:hover{ transform:translateY(-6px); border-color:rgba(59,110,246,0.4); }
   .service-icon{
@@ -265,7 +280,7 @@
     font-size:19px; margin-bottom:16px;
     background:linear-gradient(140deg, rgba(59,110,246,0.35), rgba(242,169,59,0.25));
   }
-  .service-card h5{ font-family:'Sora'; font-size:14.5px; font-weight:600; margin-bottom:6px; }
+  .service-card h5{ font-family:'Sora', sans-serif; font-size:14.5px; font-weight:600; margin-bottom:6px; }
   .service-card p{ font-size:12.5px; color:var(--muted); line-height:1.55; }
 
   /* PARA QUEM */
@@ -285,13 +300,13 @@
 
   /* DO INSTAGRAM/WHATSAPP PARA ESTRUTURA DIGITAL */
   .transform-wrap{ display:grid; grid-template-columns:1fr auto 1fr; gap:28px; align-items:center; }
-  .transform-panel{ border:1px solid var(--line); border-radius:18px; padding:30px 28px; }
+  .transform-panel{ border:1px solid var(--line); border-radius:18px; padding:30px 28px; min-width:0; }
   .transform-antes{ background:rgba(255,255,255,0.02); opacity:0.85; }
   .transform-depois{
     background: radial-gradient(circle at 30% 0%, rgba(59,110,246,0.18), transparent 60%), var(--panel);
     border-color: rgba(59,110,246,0.3);
   }
-  .transform-panel .tp-label{ font-family:'JetBrains Mono'; font-size:11px; letter-spacing:1px; margin-bottom:18px; display:block; }
+  .transform-panel .tp-label{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:1px; margin-bottom:18px; display:block; }
   .transform-antes .tp-label{ color:var(--muted); }
   .transform-depois .tp-label{ color:var(--amber-glow); }
   .transform-list{ list-style:none; display:flex; flex-direction:column; gap:12px; }
@@ -313,7 +328,7 @@
     display:flex; align-items:center; justify-content:center; font-size:26px;
     background:linear-gradient(140deg, var(--amber), #a86a1a); box-shadow:0 10px 24px rgba(242,169,59,0.35);
   }
-  .ativo-banner h3{ font-family:'Sora'; font-size:21px; font-weight:700; margin-bottom:8px; }
+  .ativo-banner h3{ font-family:'Sora', sans-serif; font-size:21px; font-weight:700; margin-bottom:8px; }
   .ativo-banner p{ color:var(--muted); font-size:14px; line-height:1.65; max-width:640px; }
 
   /* PROCESSO / FUNIL */
@@ -324,35 +339,35 @@
   .funnel-step{
     background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:24px 18px;
     position:relative; transition:transform .3s ease, border-color .3s ease;
+    min-width:0;
   }
   .funnel-step:hover{ transform: translateY(-6px) rotateX(4deg); border-color:rgba(59,110,246,0.4); }
-  .funnel-step .num{ font-family:'JetBrains Mono'; font-size:12px; color:var(--amber-glow); margin-bottom:14px; display:block; }
-  .funnel-step h5{ font-family:'Sora'; font-size:14.5px; margin-bottom:6px; }
+  .funnel-step .num{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--amber-glow); margin-bottom:14px; display:block; }
+  .funnel-step h5{ font-family:'Sora', sans-serif; font-size:14.5px; margin-bottom:6px; }
   .funnel-step p{ font-size:12.5px; color:var(--muted); line-height:1.5; }
-  .funnel-arrow{ display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:16px; }
 
   /* PLANOS */
   .plans{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
   .plan{
     background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:28px 22px;
     transition: transform .3s ease, border-color .3s ease;
-    display:flex; flex-direction:column;
+    display:flex; flex-direction:column; min-width:0;
   }
   .plan:hover{ transform:translateY(-6px); border-color:rgba(255,255,255,0.2); }
   .plan.featured{ border-color:var(--cobalt); background:linear-gradient(180deg, rgba(59,110,246,0.1), var(--panel)); }
   .plan-badge{
-    display:inline-block; width:fit-content; font-family:'JetBrains Mono'; font-size:10px; letter-spacing:0.5px;
+    display:inline-block; width:fit-content; font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.5px;
     color:var(--cobalt-glow); background:rgba(59,110,246,0.12); border:1px solid rgba(59,110,246,0.3);
     padding:4px 10px; border-radius:100px; margin-bottom:14px;
   }
-  .plan .ptitle{ font-family:'Sora'; font-weight:600; font-size:15px; margin-bottom:6px;}
+  .plan .ptitle{ font-family:'Sora', sans-serif; font-weight:600; font-size:15px; margin-bottom:6px;}
   .plan-audience{ font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:2px; }
-  .plan .price{ font-family:'Sora'; font-weight:700; font-size:26px; margin:12px 0 4px; }
+  .plan .price{ font-family:'Sora', sans-serif; font-weight:700; font-size:26px; margin:12px 0 4px; }
   .plan .price span{ font-size:12.5px; color:var(--muted); font-weight:500; }
   .plan-features{ list-style:none; display:flex; flex-direction:column; gap:8px; margin:16px 0 4px; }
   .plan-features li{ font-size:12.5px; color:var(--ink); line-height:1.5; padding-left:16px; position:relative; }
   .plan-features li::before{ content:'✓'; position:absolute; left:0; top:1px; color:var(--amber-glow); font-weight:700; font-size:11px; }
-  .plan-timeline{ font-family:'JetBrains Mono'; font-size:10.5px; color:var(--muted); margin-top:6px; }
+  .plan-timeline{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--muted); margin-top:6px; }
   .plan-cta{
     margin-top:18px; padding-top:16px; border-top:1px solid var(--line);
     display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;
@@ -375,9 +390,9 @@
     box-shadow:0 20px 40px rgba(0,0,0,0.4);
     transform-style:preserve-3d;
   }
-  .qs-card h5{ font-family:'Sora'; font-size:14px; margin-bottom:8px; }
+  .qs-card h5{ font-family:'Sora', sans-serif; font-size:14px; margin-bottom:8px; }
   .qs-card p{ font-size:12.5px; color:var(--muted); line-height:1.6; }
-  .qs-card .qs-eyebrow{ font-family:'JetBrains Mono'; font-size:10px; color:var(--amber-glow); letter-spacing:1px; margin-bottom:10px; display:block;}
+  .qs-card .qs-eyebrow{ font-family:'JetBrains Mono', monospace; font-size:10px; color:var(--amber-glow); letter-spacing:1px; margin-bottom:10px; display:block;}
   .qs1{
     background:linear-gradient(155deg, rgba(59,110,246,0.28), rgba(19,24,38,0.94));
     transform: rotateY(3deg) rotateX(1deg);
@@ -406,7 +421,7 @@
   .pillar:nth-child(3){ border-left-color: var(--amber); }
   .pillar:nth-child(4){ border-left-color: var(--cobalt); }
   .pillar:hover{ transform: translateX(4px); }
-  .pillar h6{ font-family:'Sora'; font-size:14.5px; font-weight:600; margin-bottom:6px;}
+  .pillar h6{ font-family:'Sora', sans-serif; font-size:14.5px; font-weight:600; margin-bottom:6px;}
   .pillar p{ font-size:12.5px; color:var(--muted); line-height:1.6; }
 
   /* PROJETOS REALIZADOS */
@@ -416,7 +431,7 @@
     perspective:1600px;
   }
   .projeto-card{
-    position:relative; border-radius:20px; padding:34px 30px; min-height:280px;
+    position:relative; border-radius:20px; padding:34px 30px; min-height:280px; min-width:0;
     border:1px solid var(--line); overflow:hidden;
     transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s ease;
     transform-style:preserve-3d;
@@ -439,10 +454,10 @@
   .projeto-1 .projeto-icon{ background:linear-gradient(140deg, var(--cobalt), #24408f); box-shadow:0 10px 24px rgba(59,110,246,0.4);}
   .projeto-2 .projeto-icon{ background:linear-gradient(140deg, var(--amber), #a86a1a); box-shadow:0 10px 24px rgba(242,169,59,0.35);}
   .projeto-tag{
-    font-family:'JetBrains Mono'; font-size:10.5px; letter-spacing:1px; opacity:0.6;
+    font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:1px; opacity:0.6;
     display:block; margin-bottom:12px; transform: translateZ(20px);
   }
-  .projeto-card h3{ font-family:'Sora'; font-size:22px; font-weight:700; margin-bottom:8px; transform: translateZ(20px); }
+  .projeto-card h3{ font-family:'Sora', sans-serif; font-size:22px; font-weight:700; margin-bottom:8px; transform: translateZ(20px); }
   .projeto-segmento{
     display:block; font-size:12px; color:var(--muted); font-weight:500; margin-bottom:14px; transform: translateZ(20px);
   }
@@ -472,12 +487,12 @@
   }
   .cast-badge{
     display:inline-flex; align-items:center; gap:8px;
-    font-family:'JetBrains Mono'; font-size:11.5px; color:var(--amber-glow);
+    font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--amber-glow);
     border:1px solid rgba(242,169,59,0.3); background:rgba(242,169,59,0.08);
     padding:6px 14px; border-radius:100px; margin-bottom:20px; width:fit-content;
   }
   .cast-badge .dot{ width:6px; height:6px; border-radius:50%; background:var(--amber-glow); box-shadow:0 0 10px var(--amber-glow); }
-  .cast-wrap h3{ font-family:'Sora'; font-weight:700; font-size:26px; margin-bottom:14px; letter-spacing:-0.5px; }
+  .cast-wrap h3{ font-family:'Sora', sans-serif; font-weight:700; font-size:26px; margin-bottom:14px; letter-spacing:-0.5px; }
   .cast-wrap p{ color:var(--muted); font-size:14.5px; line-height:1.7; max-width:440px; }
   .cast-player{
     position:relative; border-radius:16px; aspect-ratio:16/9;
@@ -499,7 +514,7 @@
     animation: pulseGlow 2.4s ease-in-out infinite;
   }
   @keyframes pulseGlow{ 0%,100%{ box-shadow:0 10px 30px rgba(59,110,246,0.35);} 50%{ box-shadow:0 10px 44px rgba(242,169,59,0.45);} }
-  .cast-player span{ position:relative; z-index:1; font-family:'JetBrains Mono'; font-size:11.5px; color:var(--muted); letter-spacing:0.5px; }
+  .cast-player span{ position:relative; z-index:1; font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--muted); letter-spacing:0.5px; }
 
   /* PROCESSO (COMO FUNCIONA) */
   .processo-row{
@@ -510,7 +525,7 @@
   .kicker-center{ text-align:center; }
   .confianca-box{ max-width:780px; margin:0 auto; text-align:center; }
   .confianca-line{
-    font-family:'Sora'; font-weight:600; font-size:clamp(17px,2.2vw,24px); color:var(--ink); line-height:1.6;
+    font-family:'Sora', sans-serif; font-weight:600; font-size:clamp(17px,2.2vw,24px); color:var(--ink); line-height:1.6;
   }
   .confianca-line .cdot{ color:var(--amber-glow); margin:0 12px; font-weight:400; }
 
@@ -543,28 +558,27 @@
   .contato-whats:hover{ border-color:rgba(59,110,246,0.4); }
   .contato-email .contato-icon{ background:linear-gradient(140deg, var(--amber), #a86a1a); box-shadow:0 8px 20px rgba(242,169,59,0.3); }
   .contato-email:hover{ border-color:rgba(242,169,59,0.4); }
-  .contato-label{ display:block; font-family:'JetBrains Mono'; font-size:11px; color:var(--muted); letter-spacing:0.5px; margin-bottom:3px; }
-  .contato-value{ display:block; font-family:'Sora'; font-size:15px; font-weight:600; color:var(--ink); }
+  .contato-label{ display:block; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:0.5px; margin-bottom:3px; }
+  .contato-value{ display:block; font-family:'Sora', sans-serif; font-size:15px; font-weight:600; color:var(--ink); }
 
   footer{
     padding:60px 5% 40px; border-top:1px solid var(--line); position:relative; z-index:1;
     display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;
   }
   footer .fnote{ color:var(--muted); font-size:13px; }
-  .footer-brand{ font-family:'Sora'; font-weight:700; font-size:16px; }
+  .footer-brand{ font-family:'Sora', sans-serif; font-weight:700; font-size:16px; }
   .footer-contact{ display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted); }
   .footer-contact a{ color:var(--muted); text-decoration:none; transition:color .2s ease; }
   .footer-contact a:hover{ color:var(--cobalt-glow); }
   .footer-contact .fdot{ opacity:0.4; }
 
   @media(max-width:900px){
+    section{ padding:110px 5% 80px; }
     .hero-grid{ grid-template-columns:1fr; }
-    .stack3d{ display:none; }
     .dual-wrap{ grid-template-columns:1fr; }
     .projetos-grid{ grid-template-columns:1fr; }
     .cast-wrap{ grid-template-columns:1fr; }
     .funnel-row{ grid-template-columns:1fr 1fr; }
-    .funnel-arrow{ display:none; }
     .plans{ grid-template-columns:1fr 1fr; }
     nav{ display:none; }
     .services-grid{ grid-template-columns:1fr 1fr; }
@@ -573,6 +587,22 @@
     .ativo-banner{ flex-direction:column; align-items:flex-start; }
     .processo-row{ grid-template-columns:1fr 1fr; }
     .ctafinal-box{ padding:44px 24px; }
+    .cta-small{ padding:13px 20px; }
+  }
+
+  @media(max-width:520px){
+    .funnel-row, .plans, .services-grid, .processo-row{ grid-template-columns:1fr; }
+    .hero-cta{ flex-direction:column; align-items:stretch; }
+    .decision-bar{ gap:20px 28px; }
+    header{ padding:16px 4%; }
+    .logo{ font-size:15px; gap:8px; }
+    .logo .mark{ width:26px; height:26px; font-size:12px; }
+    .cta-prefix{ display:none; }
+    .cta-small{ padding:13px 16px; font-size:12.5px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
   }
 </style>
 </head>
@@ -592,7 +622,7 @@
     <a href="#conteudo">Conteúdo</a>
     <a href="#planos">Planos</a>
   </nav>
-  <a class="cta-small" href="https://wa.me/5521975490786" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+  <a class="cta-small" href="https://wa.me/5521975490786" target="_blank" rel="noopener noreferrer"><span class="cta-prefix">Falar no </span>WhatsApp</a>
 </header>
 
 <div class="spotlight"></div>
