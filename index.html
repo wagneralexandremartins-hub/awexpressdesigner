@@ -567,6 +567,35 @@
   .contato-label{ display:block; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:0.5px; margin-bottom:3px; }
   .contato-value{ display:block; font-family:'Sora', sans-serif; font-size:15px; font-weight:600; color:var(--ink); }
 
+  /* CONTATO — FORMULARIO */
+  .contato-form-box{
+    margin-top:24px; border-radius:22px; border:1px solid var(--line);
+    background: radial-gradient(circle at 85% 0%, rgba(59,110,246,0.1), transparent 55%), var(--panel);
+    padding:40px 40px 36px;
+  }
+  .contato-form-head h4{ font-family:'Sora', sans-serif; font-weight:700; font-size:20px; margin-top:6px; letter-spacing:-0.3px; }
+  .contato-form{ margin-top:24px; display:flex; flex-direction:column; gap:16px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .form-field{ display:flex; flex-direction:column; gap:6px; }
+  .form-field label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:0.5px; }
+  .form-field input, .form-field select, .form-field textarea{
+    font-family:'Inter', sans-serif; font-size:14px; color:var(--ink);
+    background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:10px;
+    padding:12px 14px; outline:none; transition:border-color .25s ease, background .25s ease;
+    width:100%;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{
+    border-color:rgba(59,110,246,0.5); background:rgba(255,255,255,0.06);
+  }
+  .form-field textarea{ resize:vertical; min-height:80px; font-family:'Inter', sans-serif; }
+  .form-field select{ cursor:pointer; }
+  .hp-field{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .form-submit-btn{ border:none; cursor:pointer; width:fit-content; font-family:'Inter', sans-serif; }
+  .form-submit-btn:disabled{ opacity:0.6; cursor:not-allowed; }
+  .form-feedback{ font-size:13.5px; min-height:18px; }
+  .form-feedback.success{ color:#6fd68f; }
+  .form-feedback.error{ color:#f27b6b; }
+
   /* PRIVACIDADE */
   .privacidade{ padding-top:20px; }
   .privacy-content{ max-width:680px; }
@@ -629,7 +658,8 @@
   }
 
   @media(max-width:520px){
-    .funnel-row, .plans, .services-grid, .processo-row{ grid-template-columns:1fr; }
+    .funnel-row, .plans, .services-grid, .processo-row, .form-row{ grid-template-columns:1fr; }
+    .contato-form-box{ padding:28px 22px; }
     .hero-cta{ flex-direction:column; align-items:stretch; }
     .decision-bar{ gap:20px 28px; }
     header{ padding:16px 4%; }
@@ -1054,6 +1084,51 @@
       </a>
     </div>
   </div>
+
+  <div class="contato-form-box">
+    <div class="contato-form-head">
+      <span class="contato-label">OU PREENCHA O FORMULÁRIO</span>
+      <h4>Conta pra gente o que você precisa</h4>
+    </div>
+    <form id="contatoForm" class="contato-form" novalidate>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="cf-nome">Nome *</label>
+          <input type="text" id="cf-nome" name="nome" required autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label for="cf-telefone">WhatsApp / Telefone *</label>
+          <input type="tel" id="cf-telefone" name="telefone" required autocomplete="tel">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="cf-email">E-mail</label>
+          <input type="email" id="cf-email" name="email" autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label for="cf-servico">Serviço de interesse</label>
+          <select id="cf-servico" name="servico">
+            <option value="">Selecione (opcional)</option>
+            <option value="f7fe1707-4f72-4c6d-9654-5b2e5c0bb696">Site</option>
+            <option value="41eb2d57-9818-4949-9617-345895e8b795">Anúncios</option>
+            <option value="4abca125-6c39-4dc3-921b-1bb0155b1d72">Automação</option>
+            <option value="4467d868-a443-415b-b5cd-67dcd29397dc">Manutenção</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="cf-obs">Conte um pouco mais (opcional)</label>
+        <textarea id="cf-obs" name="observacoes" rows="3"></textarea>
+      </div>
+      <div class="hp-field" aria-hidden="true">
+        <label for="cf-website">Não preencha este campo</label>
+        <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <button type="submit" class="btn-primary form-submit-btn" id="cfSubmit">Enviar mensagem</button>
+      <p class="form-feedback" id="cfFeedback" role="status" aria-live="polite"></p>
+    </form>
+  </div>
 </section>
 
 <section class="privacidade" id="privacidade">
@@ -1102,6 +1177,92 @@
   document.getElementById("cookieAccept").addEventListener("click", function(){
     banner.classList.remove("show");
     try { localStorage.setItem(KEY, "accepted"); } catch(e) {}
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var SUPABASE_URL = "https://rsqobiqdwzuqocpviyhb.supabase.co";
+  var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzcW9iaXFkd3p1cW9jcHZpeWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0MjEzMTYsImV4cCI6MjEwNDk5NzMxNn0.oMobwOKEkWd66r3A1KkcsUJTqWsOG7uznHcefA15uco";
+
+  var form = document.getElementById("contatoForm");
+  if (!form) return;
+  var feedback = document.getElementById("cfFeedback");
+  var submitBtn = document.getElementById("cfSubmit");
+
+  function setFeedback(msg, type){
+    feedback.textContent = msg;
+    feedback.className = "form-feedback" + (type ? " " + type : "");
+  }
+
+  function supabasePost(path, payload, extraHeaders){
+    var headers = {
+      "Content-Type": "application/json",
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": "Bearer " + SUPABASE_ANON_KEY
+    };
+    for (var k in extraHeaders) headers[k] = extraHeaders[k];
+    return fetch(SUPABASE_URL + path, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(payload)
+    });
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    if (form.elements["website"].value) return;
+
+    var nome = form.elements["nome"].value.trim();
+    var telefone = form.elements["telefone"].value.trim();
+    var email = form.elements["email"].value.trim();
+    var servicoId = form.elements["servico"].value;
+    var observacoes = form.elements["observacoes"].value.trim();
+
+    if (!nome || !telefone) {
+      setFeedback("Preencha nome e telefone antes de enviar.", "error");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Enviando...";
+    setFeedback("", "");
+
+    var contatoId = crypto.randomUUID();
+
+    supabasePost("/rest/v1/contatos", {
+      id: contatoId,
+      nome: nome,
+      telefone: telefone,
+      email: email || null,
+      origem: "site institucional"
+    })
+      .then(function(res){
+        if (!res.ok) throw new Error("Falha ao gravar contato");
+        if (servicoId) {
+          return supabasePost("/rest/v1/atendimentos", {
+            contato_id: contatoId,
+            item_servico_id: servicoId,
+            observacoes: observacoes || null
+          }).catch(function(err){
+            console.error("Contato salvo, mas falhou ao registrar atendimento:", err);
+          });
+        }
+      })
+      .then(function(){
+        setFeedback("Mensagem enviada! Vamos te responder em breve.", "success");
+        form.reset();
+      })
+      .catch(function(err){
+        console.error("Falha ao enviar contato:", err);
+        setFeedback("Não foi possível enviar agora. Tenta pelo WhatsApp ou e-mail acima.", "error");
+      })
+      .finally(function(){
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Enviar mensagem";
+      });
   });
 })();
 </script>
