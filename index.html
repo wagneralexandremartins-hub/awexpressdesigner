@@ -8,7 +8,7 @@
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0a0d14">
 <link rel="canonical" href="https://awexpressdesigner.com.br/">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233b6ef6'/%3E%3Cstop offset='1' stop-color='%23f2a93b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='800' font-size='26' fill='%230a0d14' text-anchor='middle'%3EAW%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AWEXPRESS Designer">
@@ -609,10 +609,10 @@
     background:var(--panel); border:1px solid var(--line); border-radius:14px;
     padding:18px 20px; box-shadow:0 20px 50px rgba(0,0,0,0.5);
     display:flex; align-items:center; gap:18px; flex-wrap:wrap;
-    transform:translateY(140%); opacity:0; pointer-events:none;
-    transition:transform .4s ease, opacity .4s ease;
+    transform:translateY(140%); opacity:0; pointer-events:none; visibility:hidden;
+    transition:transform .4s ease, opacity .4s ease, visibility 0s linear .4s;
   }
-  .cookie-banner.show{ transform:translateY(0); opacity:1; pointer-events:auto; }
+  .cookie-banner.show{ transform:translateY(0); opacity:1; pointer-events:auto; visibility:visible; transition-delay:0s; }
   .cookie-banner p{ flex:1; min-width:220px; font-size:12.5px; color:var(--muted); line-height:1.6; margin:0; }
   .cookie-banner p a{ color:var(--cobalt-glow); text-decoration:underline; }
   .cookie-actions{ display:flex; gap:10px; flex:none; }
@@ -638,6 +638,19 @@
   .footer-contact a{ color:var(--muted); text-decoration:none; transition:color .2s ease; }
   .footer-contact a:hover{ color:var(--cobalt-glow); }
   .footer-contact .fdot{ opacity:0.4; }
+
+  .skip-link{
+    position:absolute; left:16px; top:-100px; z-index:300;
+    background:var(--panel); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+    padding:10px 16px; font-size:14px; font-weight:600; text-decoration:none;
+  }
+  .skip-link:focus{ top:16px; }
+
+  /* FOCO POR TECLADO */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible,
+  .form-field input:focus-visible, .form-field select:focus-visible, .form-field textarea:focus-visible{
+    outline:2px solid var(--cobalt-glow); outline-offset:2px;
+  }
 
   @media(max-width:900px){
     section{ padding:110px 5% 80px; }
@@ -670,18 +683,21 @@
   }
 
   @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
     *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
   }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#principal">Pular para o conteúdo</a>
+
 <div class="bg-grid"></div>
 <div class="noise"></div>
 
 <header>
   <div class="logo"><div class="mark">AW</div>AWEXPRESS Designer</div>
-  <nav>
+  <nav aria-label="Navegação principal">
     <a href="#oquefazemos">O que fazemos</a>
     <a href="#motores">Soluções</a>
     <a href="#funil">Como funciona</a>
@@ -694,10 +710,11 @@
 </header>
 
 <div class="spotlight"></div>
+<main id="principal">
 <section class="hero">
   <div class="hero-grid">
     <div>
-      <div class="eyebrow"><span class="dot"></span> DO NEGÓCIO PARA O DIGITAL</div>
+      <div class="eyebrow"><span class="dot" aria-hidden="true"></span> DO NEGÓCIO PARA O DIGITAL</div>
       <h1>Seu negócio digital, <span class="grad">no ar e vendendo</span> — hoje, não algum dia.</h1>
       <p class="lead">Sites profissionais, landing pages, presença no Google, WhatsApp e campanhas digitais para transformar sua presença online em uma ferramenta de vendas.</p>
       <div class="hero-cta">
@@ -710,7 +727,7 @@
         <div class="decision-item"><span class="dnum">100%</span><span class="dlabel">seu, sem depender de curso</span></div>
       </div>
     </div>
-    <div class="orbit-wrap">
+    <div class="orbit-wrap" aria-hidden="true">
       <div class="orbit-ring ring2"></div>
       <div class="orbit-ring ring1"></div>
       <div class="orbit-core">
@@ -731,14 +748,14 @@
     <p>Cada peça abaixo pode ser contratada isoladamente ou combinada — tudo roda sobre a mesma base técnica.</p>
   </div>
   <div class="services-grid">
-    <div class="service-card"><div class="service-icon">🌐</div><h5>Sites profissionais</h5><p>Presença digital completa, rápida e pronta para publicar.</p></div>
-    <div class="service-card"><div class="service-icon">🎯</div><h5>Landing pages</h5><p>Página focada em uma única oferta, feita para converter.</p></div>
-    <div class="service-card"><div class="service-icon">🏛️</div><h5>Sites institucionais</h5><p>Apresentação sólida para empresas, clínicas e negócios locais.</p></div>
-    <div class="service-card"><div class="service-icon">📍</div><h5>Presença no Google</h5><p>Seu negócio encontrado por quem já está procurando.</p></div>
-    <div class="service-card"><div class="service-icon">💬</div><h5>Integração com WhatsApp</h5><p>Contato direto do site para o WhatsApp, sem fricção.</p></div>
-    <div class="service-card"><div class="service-icon">📈</div><h5>Campanhas de tráfego pago</h5><p>Google e Meta Ads configurados para gerar visita qualificada.</p></div>
-    <div class="service-card"><div class="service-icon">🛠️</div><h5>Manutenção e suporte</h5><p>Ajustes e atualizações contínuas depois do site no ar.</p></div>
-    <div class="service-card"><div class="service-icon">📚</div><h5>Estrutura para produtos e autores</h5><p>Base digital para e-books, cursos, livros e conteúdo próprio.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">🌐</div><h5>Sites profissionais</h5><p>Presença digital completa, rápida e pronta para publicar.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">🎯</div><h5>Landing pages</h5><p>Página focada em uma única oferta, feita para converter.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">🏛️</div><h5>Sites institucionais</h5><p>Apresentação sólida para empresas, clínicas e negócios locais.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">📍</div><h5>Presença no Google</h5><p>Seu negócio encontrado por quem já está procurando.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">💬</div><h5>Integração com WhatsApp</h5><p>Contato direto do site para o WhatsApp, sem fricção.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">📈</div><h5>Campanhas de tráfego pago</h5><p>Google e Meta Ads configurados para gerar visita qualificada.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">🛠️</div><h5>Manutenção e suporte</h5><p>Ajustes e atualizações contínuas depois do site no ar.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">📚</div><h5>Estrutura para produtos e autores</h5><p>Base digital para e-books, cursos, livros e conteúdo próprio.</p></div>
   </div>
 </section>
 
@@ -751,7 +768,7 @@
   <div class="dual-wrap">
     <div class="dual-panel panel-empresas">
       <div>
-        <div class="panel-icon">🏢</div>
+        <div class="panel-icon" aria-hidden="true">🏢</div>
         <h3>AWEXPRESS para Empresas</h3>
         <p>Sites institucionais, landing pages e presença digital completa para negócios locais e clínicas — com estrutura pronta para receber tráfego pago.</p>
       </div>
@@ -764,7 +781,7 @@
     </div>
     <div class="dual-panel panel-produtos">
       <div>
-        <div class="panel-icon">📚</div>
+        <div class="panel-icon" aria-hidden="true">📚</div>
         <h3>AWEXPRESS Produtos</h3>
         <p>Guias, e-books, cursos e livros publicados com metodologia própria — do manuscrito até a página de vendas, sem depender de fórmula de terceiro.</p>
       </div>
@@ -784,14 +801,14 @@
     <h2>Se o seu negócio precisa ser encontrado, a gente coloca ele no mapa.</h2>
   </div>
   <div class="audience-wrap">
-    <span class="audience-chip"><span class="adot"></span>Pequenas empresas</span>
-    <span class="audience-chip"><span class="adot"></span>Negócios locais</span>
-    <span class="audience-chip"><span class="adot"></span>Clínicas</span>
-    <span class="audience-chip"><span class="adot"></span>Restaurantes e alimentação</span>
-    <span class="audience-chip"><span class="adot"></span>Turismo</span>
-    <span class="audience-chip"><span class="adot"></span>Profissionais autônomos</span>
-    <span class="audience-chip"><span class="adot"></span>Igrejas e projetos</span>
-    <span class="audience-chip"><span class="adot"></span>Autores e produtores de conteúdo</span>
+    <span class="audience-chip"><span class="adot" aria-hidden="true"></span>Pequenas empresas</span>
+    <span class="audience-chip"><span class="adot" aria-hidden="true"></span>Negócios locais</span>
+    <span class="audience-chip"><span class="adot" aria-hidden="true"></span>Clínicas</span>
+    <span class="audience-chip"><span class="adot" aria-hidden="true"></span>Restaurantes e alimentação</span>
+    <span class="audience-chip"><span class="adot" aria-hidden="true"></span>Turismo</span>
+    <span class="audience-chip"><span class="adot" aria-hidden="true"></span>Profissionais autônomos</span>
+    <span class="audience-chip"><span class="adot" aria-hidden="true"></span>Igrejas e projetos</span>
+    <span class="audience-chip"><span class="adot" aria-hidden="true"></span>Autores e produtores de conteúdo</span>
   </div>
 </section>
 
@@ -810,7 +827,7 @@
         <li>Pouca presença no Google</li>
       </ul>
     </div>
-    <div class="transform-arrow">→</div>
+    <div class="transform-arrow" aria-hidden="true">→</div>
     <div class="transform-panel transform-depois">
       <span class="tp-label">COM A AWEXPRESS</span>
       <ul class="transform-list">
@@ -827,7 +844,7 @@
 
 <section class="ativo" id="ativo">
   <div class="ativo-banner">
-    <div class="ativo-icon">🔑</div>
+    <div class="ativo-icon" aria-hidden="true">🔑</div>
     <div>
       <h3>Ativo, não aluguel.</h3>
       <p>O site que construímos é um ativo digital do seu negócio — fica com você, não é um espaço alugado numa rede social. Não prometemos aumento garantido de vendas: entregamos a estrutura certa para você vender melhor.</p>
@@ -904,7 +921,7 @@
   <div class="projetos-grid">
     <div class="projeto-card projeto-1">
       <div>
-        <div class="projeto-icon">🙏</div>
+        <div class="projeto-icon" aria-hidden="true">🙏</div>
         <span class="projeto-tag">365GRACAEADORACAO.COM</span>
         <h3>365 Graça &amp; Adoração</h3>
         <span class="projeto-segmento">Plataforma editorial · Conteúdo bíblico</span>
@@ -918,7 +935,7 @@
     </div>
     <div class="projeto-card projeto-2">
       <div>
-        <div class="projeto-icon">✈️</div>
+        <div class="projeto-icon" aria-hidden="true">✈️</div>
         <span class="projeto-tag">AGENCIAPAULOROGERIOTUR.COM.BR</span>
         <h3>Agência Paulo Rogério Tur</h3>
         <span class="projeto-segmento">Turismo · Agência de viagens</span>
@@ -932,7 +949,7 @@
     </div>
     <div class="projeto-card projeto-3">
       <div>
-        <div class="projeto-icon">🗺️</div>
+        <div class="projeto-icon" aria-hidden="true">🗺️</div>
         <span class="projeto-tag">ROTEIROSPOCOSDECALDAS.COM.BR</span>
         <h3>Roteiros Poços de Caldas</h3>
         <span class="projeto-segmento">Turismo · Guiamento turístico</span>
@@ -964,12 +981,12 @@
 <section class="conteudo" id="conteudo">
   <div class="cast-wrap">
     <div>
-      <div class="cast-badge"><span class="dot"></span> EM BREVE</div>
+      <div class="cast-badge"><span class="dot" aria-hidden="true"></span> EM BREVE</div>
       <h3>AWEXPRESS Cast — lives e podcast direto daqui.</h3>
       <p>Estamos preparando o espaço para conversas ao vivo sobre negócios digitais, publicação e bastidores dos projetos. Quando o primeiro episódio for ao ar, ele aparece direto aqui, sem sair do site.</p>
     </div>
     <div class="cast-player">
-      <div class="cast-playbtn">▶</div>
+      <div class="cast-playbtn" aria-hidden="true">▶</div>
       <span>PRIMEIRO EPISÓDIO EM BREVE</span>
     </div>
   </div>
@@ -981,10 +998,10 @@
     <h2>O que fica com você depois da entrega.</h2>
   </div>
   <div class="services-grid">
-    <div class="service-card"><div class="service-icon">📍</div><h5>Presença</h5><p>Seu negócio encontrado e apresentado profissionalmente.</p></div>
-    <div class="service-card"><div class="service-icon">🧩</div><h5>Estrutura</h5><p>Site, landing page e canais conectados.</p></div>
-    <div class="service-card"><div class="service-icon">💬</div><h5>Conversão</h5><p>WhatsApp, formulário ou checkout preparado para receber contatos.</p></div>
-    <div class="service-card"><div class="service-icon">📈</div><h5>Evolução</h5><p>Uma base que pode crescer sem precisar começar novamente.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">📍</div><h5>Presença</h5><p>Seu negócio encontrado e apresentado profissionalmente.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">🧩</div><h5>Estrutura</h5><p>Site, landing page e canais conectados.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">💬</div><h5>Conversão</h5><p>WhatsApp, formulário ou checkout preparado para receber contatos.</p></div>
+    <div class="service-card"><div class="service-icon" aria-hidden="true">📈</div><h5>Evolução</h5><p>Uma base que pode crescer sem precisar começar novamente.</p></div>
   </div>
 </section>
 
@@ -1003,7 +1020,7 @@
         <li>Design responsivo</li>
         <li>Estrutura pronta para publicar</li>
       </ul>
-      <div class="plan-timeline">⏱ ~7 dias após o briefing</div>
+      <div class="plan-timeline"><span aria-hidden="true">⏱</span> ~7 dias após o briefing</div>
       <a class="plan-cta" href="https://wa.me/5521986472199?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20plano%20Site%20Simples." target="_blank" rel="noopener noreferrer">Quero esse plano →</a>
     </div>
     <div class="plan featured">
@@ -1016,7 +1033,7 @@
         <li>Campanhas Google/Meta configuradas</li>
         <li>Estrutura pronta para tráfego pago</li>
       </ul>
-      <div class="plan-timeline">⏱ ~7 dias após o briefing</div>
+      <div class="plan-timeline"><span aria-hidden="true">⏱</span> ~7 dias após o briefing</div>
       <a class="plan-cta" href="https://wa.me/5521986472199?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20plano%20Site%20%2B%20Ads." target="_blank" rel="noopener noreferrer">Quero esse plano →</a>
     </div>
     <div class="plan">
@@ -1049,7 +1066,7 @@
 <section class="confianca" id="confianca">
   <div class="confianca-box">
     <div class="kicker kicker-center">EXPERIÊNCIA REAL, NÃO TEORIA</div>
-    <p class="confianca-line">Livros publicados <span class="cdot">•</span> Sites no ar <span class="cdot">•</span> Campanhas testadas com dinheiro real</p>
+    <p class="confianca-line">Livros publicados <span class="cdot" aria-hidden="true">•</span> Sites no ar <span class="cdot" aria-hidden="true">•</span> Campanhas testadas com dinheiro real</p>
   </div>
 </section>
 
@@ -1070,14 +1087,14 @@
     </div>
     <div class="contato-links">
       <a class="contato-item contato-whats" href="https://wa.me/5521986472199" target="_blank" rel="noopener noreferrer">
-        <div class="contato-icon">💬</div>
+        <div class="contato-icon" aria-hidden="true">💬</div>
         <div>
           <span class="contato-label">WhatsApp</span>
           <span class="contato-value">(21) 98647-2199</span>
         </div>
       </a>
       <a class="contato-item contato-email" href="mailto:wagneralexandre.martins@gmail.com">
-        <div class="contato-icon">✉️</div>
+        <div class="contato-icon" aria-hidden="true">✉️</div>
         <div>
           <span class="contato-label">E-mail</span>
           <span class="contato-value">wagneralexandre.martins@gmail.com</span>
@@ -1123,8 +1140,8 @@
         <textarea id="cf-obs" name="observacoes" rows="3"></textarea>
       </div>
       <div class="hp-field" aria-hidden="true">
-        <label for="cf-website">Não preencha este campo</label>
-        <input type="text" id="cf-website" name="website" tabindex="-1" autocomplete="off">
+        <label for="cf-empresa-site-hp">Não preencha este campo</label>
+        <input type="text" id="cf-empresa-site-hp" name="empresa_site_hp" tabindex="-1" autocomplete="off">
       </div>
       <button type="submit" class="btn-primary form-submit-btn" id="cfSubmit">Enviar mensagem</button>
       <p class="form-feedback" id="cfFeedback" role="status" aria-live="polite"></p>
@@ -1145,14 +1162,15 @@
     <p>Dúvidas sobre privacidade podem ser enviadas para <a href="mailto:wagneralexandre.martins@gmail.com">wagneralexandre.martins@gmail.com</a>.</p>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="footer-brand">AWEXPRESS Designer</div>
   <div class="footer-contact">
     <a href="https://wa.me/5521986472199" target="_blank" rel="noopener noreferrer">(21) 98647-2199</a>
-    <span class="fdot">•</span>
+    <span class="fdot" aria-hidden="true">•</span>
     <a href="mailto:wagneralexandre.martins@gmail.com">wagneralexandre.martins@gmail.com</a>
-    <span class="fdot">•</span>
+    <span class="fdot" aria-hidden="true">•</span>
     <a href="#privacidade">Privacidade</a>
   </div>
   <div class="fnote">Adriana &amp; Wagner — infraestrutura digital para empresas e produtos próprios.</div>
@@ -1187,6 +1205,10 @@
   var SUPABASE_URL = "https://rsqobiqdwzuqocpviyhb.supabase.co";
   var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzcW9iaXFkd3p1cW9jcHZpeWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0MjEzMTYsImV4cCI6MjEwNDk5NzMxNn0.oMobwOKEkWd66r3A1KkcsUJTqWsOG7uznHcefA15uco";
 
+  // UUID do item "Outro / não especificado" em itens_servico. Vazio = mensagem sem
+  // serviço não é gravada (comportamento anterior). Preencher após criar o registro.
+  var SERVICO_GENERICO_ID = "";
+
   var form = document.getElementById("contatoForm");
   if (!form) return;
   var feedback = document.getElementById("cfFeedback");
@@ -1211,10 +1233,27 @@
     });
   }
 
+  function gerarUUID(){
+    if (window.crypto && typeof crypto.randomUUID === "function") return crypto.randomUUID();
+    var b = new Uint8Array(16);
+    if (window.crypto && typeof crypto.getRandomValues === "function") crypto.getRandomValues(b);
+    else for (var i = 0; i < 16; i++) b[i] = Math.floor(Math.random() * 256);
+    b[6] = (b[6] & 0x0f) | 0x40;
+    b[8] = (b[8] & 0x3f) | 0x80;
+    var h = [];
+    for (var j = 0; j < 16; j++) h.push((b[j] + 0x100).toString(16).slice(1));
+    return h.slice(0,4).join("") + "-" + h.slice(4,6).join("") + "-" + h.slice(6,8).join("") + "-" + h.slice(8,10).join("") + "-" + h.slice(10).join("");
+  }
+
+  function restaurarBotao(){
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Enviar mensagem";
+  }
+
   form.addEventListener("submit", function(e){
     e.preventDefault();
 
-    if (form.elements["website"].value) return;
+    if (form.elements["empresa_site_hp"].value) return;
 
     var nome = form.elements["nome"].value.trim();
     var telefone = form.elements["telefone"].value.trim();
@@ -1231,39 +1270,50 @@
     submitBtn.textContent = "Enviando...";
     setFeedback("", "");
 
-    var contatoId = crypto.randomUUID();
+    var contatoSalvo = false;
+    var envio;
+    try {
+      var contatoId = gerarUUID();
+      if (!servicoId && observacoes && SERVICO_GENERICO_ID) servicoId = SERVICO_GENERICO_ID;
 
-    supabasePost("/rest/v1/contatos", {
-      id: contatoId,
-      nome: nome,
-      telefone: telefone,
-      email: email || null,
-      origem: "site institucional"
-    })
-      .then(function(res){
-        if (!res.ok) throw new Error("Falha ao gravar contato");
-        if (servicoId) {
-          return supabasePost("/rest/v1/atendimentos", {
-            contato_id: contatoId,
-            item_servico_id: servicoId,
-            observacoes: observacoes || null
-          }).catch(function(err){
-            console.error("Contato salvo, mas falhou ao registrar atendimento:", err);
-          });
-        }
+      envio = supabasePost("/rest/v1/contatos", {
+        id: contatoId,
+        nome: nome,
+        telefone: telefone,
+        email: email || null,
+        origem: "site institucional"
       })
+        .then(function(res){
+          if (!res.ok) throw new Error("Falha ao gravar contato (HTTP " + res.status + ")");
+          contatoSalvo = true;
+          if (servicoId) {
+            return supabasePost("/rest/v1/atendimentos", {
+              contato_id: contatoId,
+              item_servico_id: servicoId,
+              observacoes: observacoes || null
+            }).then(function(res2){
+              if (!res2.ok) throw new Error("Falha ao registrar atendimento (HTTP " + res2.status + ")");
+            });
+          }
+        });
+    } catch (err) {
+      envio = Promise.reject(err);
+    }
+
+    envio
       .then(function(){
         setFeedback("Mensagem enviada! Vamos te responder em breve.", "success");
         form.reset();
       })
       .catch(function(err){
         console.error("Falha ao enviar contato:", err);
-        setFeedback("Não foi possível enviar agora. Tenta pelo WhatsApp ou e-mail acima.", "error");
+        if (contatoSalvo) {
+          setFeedback("Recebemos seu nome e telefone, mas não conseguimos registrar os detalhes do pedido. Se puder, confirma pelo WhatsApp ou e-mail acima.", "error");
+        } else {
+          setFeedback("Não foi possível enviar agora. Tenta pelo WhatsApp ou e-mail acima.", "error");
+        }
       })
-      .finally(function(){
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Enviar mensagem";
-      });
+      .then(restaurarBotao, restaurarBotao);
   });
 })();
 </script>
