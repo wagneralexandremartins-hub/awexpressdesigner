@@ -161,6 +161,7 @@
     font-family:'Sora', sans-serif; font-weight:800; font-size:19px; letter-spacing:0.5px;
     display:flex; align-items:center; gap:10px;
   }
+  a.logo{ color:inherit; text-decoration:none; }
   .logo .mark{
     width:30px; height:30px; border-radius:8px;
     background:linear-gradient(135deg, var(--cobalt), var(--amber));
@@ -688,7 +689,7 @@
   }
 </style>
 </head>
-<body>
+<body id="topo">
 
 <a class="skip-link" href="#principal">Pular para o conteúdo</a>
 
@@ -696,7 +697,7 @@
 <div class="noise"></div>
 
 <header>
-  <div class="logo"><div class="mark">AW</div>AWEXPRESS Designer</div>
+  <a class="logo" href="#topo" aria-label="AWEXPRESS Designer - voltar ao topo"><div class="mark" aria-hidden="true">AW</div>AWEXPRESS Designer</a>
   <nav aria-label="Navegação principal">
     <a href="#oquefazemos">O que fazemos</a>
     <a href="#motores">Soluções</a>
