@@ -66,7 +66,7 @@
     --line: rgba(255,255,255,0.08);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth; overflow-x:hidden; width:100%;}
+  html{scroll-behavior:smooth; overflow-x:hidden; width:100%; scroll-padding-top:88px;}
   body{
     background: var(--bg);
     color: var(--ink);
@@ -176,6 +176,25 @@
     transition: color .25s ease; position:relative;
   }
   nav a:hover{ color:var(--ink); }
+  .nav-toggle{
+    display:none; margin-left:auto; margin-right:10px;
+    width:42px; height:42px; padding:0; border-radius:8px; cursor:pointer;
+    background:rgba(255,255,255,0.04); border:1px solid var(--line); color:var(--ink);
+    align-items:center; justify-content:center;
+    transition: border-color .25s ease, background .25s ease;
+  }
+  .nav-toggle:hover, .nav-toggle[aria-expanded="true"]{ border-color:rgba(59,110,246,0.5); background:rgba(255,255,255,0.06); }
+  .nav-toggle-bars, .nav-toggle-bars::before, .nav-toggle-bars::after{
+    display:block; width:18px; height:2px; border-radius:2px; background:currentColor;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .nav-toggle-bars{ position:relative; }
+  .nav-toggle-bars::before, .nav-toggle-bars::after{ content:""; position:absolute; left:0; }
+  .nav-toggle-bars::before{ top:-6px; }
+  .nav-toggle-bars::after{ top:6px; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars{ background:transparent; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars::before{ transform:translateY(6px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars::after{ transform:translateY(-6px) rotate(-45deg); }
   .cta-small{
     background:var(--ink); color:#0a0d14; padding:10px 20px; border-radius:8px;
     font-weight:600; font-size:13.5px; text-decoration:none;
@@ -590,6 +609,7 @@
   }
   .form-field textarea{ resize:vertical; min-height:80px; font-family:'Inter', sans-serif; }
   .form-field select{ cursor:pointer; }
+  .form-field select option{ background-color:var(--panel); color:var(--ink); }
   .hp-field{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
   .form-submit-btn{ border:none; cursor:pointer; width:fit-content; font-family:'Inter', sans-serif; }
   .form-submit-btn:disabled{ opacity:0.6; cursor:not-allowed; }
@@ -653,6 +673,28 @@
     outline:2px solid var(--cobalt-glow); outline-offset:2px;
   }
 
+  /* Menu recolhido até 1240px: com 8 links o cabeçalho não cabe numa linha abaixo disso */
+  @media(max-width:1240px){
+    .nav-toggle{ display:inline-flex; }
+    nav{
+      display:none; position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; gap:0; padding:8px 5% 16px;
+      background:var(--bg); border-bottom:1px solid var(--line);
+    }
+    nav.open{ display:flex; }
+    nav a{ padding:13px 0; font-size:15px; border-bottom:1px solid var(--line); }
+    nav a:last-child{ border-bottom:none; }
+  }
+  @media(min-width:1241px){
+    nav a, .logo, .cta-small{ white-space:nowrap; }
+  }
+  @media(min-width:1241px) and (max-width:1320px){
+    nav{ gap:12px; }
+  }
+  @media(min-width:1321px) and (max-width:1440px){
+    nav{ gap:20px; }
+  }
+
   @media(max-width:900px){
     section{ padding:110px 5% 80px; }
     .hero-grid{ grid-template-columns:1fr; }
@@ -661,7 +703,6 @@
     .cast-wrap{ grid-template-columns:1fr; }
     .funnel-row{ grid-template-columns:1fr 1fr; }
     .plans{ grid-template-columns:1fr 1fr; }
-    nav{ display:none; }
     .services-grid{ grid-template-columns:1fr 1fr; }
     .transform-wrap{ grid-template-columns:1fr; }
     .transform-arrow{ transform:rotate(90deg); justify-self:center; }
@@ -698,7 +739,8 @@
 
 <header>
   <a class="logo" href="#topo" aria-label="AWEXPRESS Designer - voltar ao topo"><div class="mark" aria-hidden="true">AW</div>AWEXPRESS Designer</a>
-  <nav aria-label="Navegação principal">
+  <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navPrincipal" aria-label="Abrir menu"><span class="nav-toggle-bars" aria-hidden="true"></span></button>
+  <nav id="navPrincipal" aria-label="Navegação principal">
     <a href="#oquefazemos">O que fazemos</a>
     <a href="#motores">Soluções</a>
     <a href="#funil">Como funciona</a>
@@ -706,6 +748,7 @@
     <a href="#projetos">Projetos</a>
     <a href="#conteudo">Conteúdo</a>
     <a href="#planos">Planos</a>
+    <a href="#contato">Contato</a>
   </nav>
   <a class="cta-small" href="https://wa.me/5521986472199" target="_blank" rel="noopener noreferrer"><span class="cta-prefix">Falar no </span>WhatsApp</a>
 </header>
@@ -1203,11 +1246,41 @@
 
 <script>
 (function(){
+  var toggle = document.getElementById("navToggle");
+  var nav = document.getElementById("navPrincipal");
+  if (!toggle || !nav) return;
+  var mq = window.matchMedia("(max-width:1240px)");
+
+  function setOpen(open){
+    nav.classList.toggle("open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+  }
+  toggle.addEventListener("click", function(){
+    setOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+  nav.addEventListener("click", function(e){
+    if (e.target.closest("a")) setOpen(false);
+  });
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  function onMq(){ if (!mq.matches) setOpen(false); }
+  if (mq.addEventListener) mq.addEventListener("change", onMq);
+  else mq.addListener(onMq);
+})();
+</script>
+
+<script>
+(function(){
   var SUPABASE_URL = "https://rsqobiqdwzuqocpviyhb.supabase.co";
   var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzcW9iaXFkd3p1cW9jcHZpeWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0MjEzMTYsImV4cCI6MjEwNDk5NzMxNn0.oMobwOKEkWd66r3A1KkcsUJTqWsOG7uznHcefA15uco";
 
-  // UUID do item "Outro / não especificado" em itens_servico. Vazio = mensagem sem
-  // serviço não é gravada (comportamento anterior). Preencher após criar o registro.
+  // UUID do item "Outro / não especificado" em itens_servico. Vazio = envio de
+  // mensagem sem serviço é bloqueado com aviso. Preencher após criar o registro.
   var SERVICO_GENERICO_ID = "";
 
   var form = document.getElementById("contatoForm");
@@ -1264,6 +1337,18 @@
 
     if (!nome || !telefone) {
       setFeedback("Preencha nome e telefone antes de enviar.", "error");
+      return;
+    }
+    if (telefone.replace(/\D/g, "").length < 10) {
+      setFeedback("Informe o telefone com DDD (pelo menos 10 dígitos).", "error");
+      return;
+    }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setFeedback("Confira o e-mail: o formato parece inválido.", "error");
+      return;
+    }
+    if (!servicoId && observacoes && !SERVICO_GENERICO_ID) {
+      setFeedback("Escolha um serviço para enviarmos sua mensagem, ou deixe o campo de mensagem em branco.", "error");
       return;
     }
 
